@@ -31,7 +31,7 @@
   - unary / unary
   - unary * unary
   - unary % unary
-- Поддерживаются обозначения положительных/отрицательных чисел как: +primary/-primary
+- Поддерживаются также обозначения положительных/отрицательных чисел как: +primary/-primary
 - Поддерживаемые присваивания:
   - variable = expression
   - variable += expression

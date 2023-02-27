@@ -40,7 +40,6 @@ class ControlUnit1:
         self.device = device
         self.zero_flag = False
         self.negative_flag = False
-        self.overflow_flag = False
 
     def tick(self):
         self.tact += 1
@@ -50,9 +49,6 @@ class ControlUnit1:
 
     def set_negative_flag(self, val: int):
         self.negative_flag = val < 0
-
-    def set_overflow_flag(self, val: int):
-        self.overflow_flag = val > MAX_WORD or val < MIN_WORD
 
     def set_ar(self, val: int):
         self.ar = int(val)
@@ -68,6 +64,12 @@ class ControlUnit1:
             self.program_counter += 1
         else:
             self.program_counter = self.dr
+
+    @staticmethod
+    def check_value(val):
+        if val > MAX_WORD or val < MIN_WORD:
+            raise MachineException('Overflow error!')
+        return val
 
     def alu_calculate(self, operation, sel_left=True, sel_right=True):
         left_operand = self.acc if sel_left else 0
@@ -94,8 +96,7 @@ class ControlUnit1:
 
         self.set_zero_flag(res)
         self.set_negative_flag(res)
-        self.set_overflow_flag(res)
-        return res
+        return self.check_value(res)
 
     def operand_fetch(self, term):
         if term[2] == AddressingMode.DIRECT:
@@ -227,28 +228,32 @@ class ControlUnit1:
                 self.latch_program_counter(True)
 
         elif opcode == Opcode.BGE:
-            if not (self.negative_flag ^ self.overflow_flag):
+            # ~(n ^ v)
+            if not self.negative_flag:
                 self.operand_fetch(term)
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
 
         elif opcode == Opcode.BLE:
-            if self.zero_flag | (self.negative_flag ^ self.overflow_flag):
+            # z | (n ^ v)
+            if self.zero_flag | self.negative_flag:
                 self.operand_fetch(term)
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
 
         elif opcode == Opcode.BL:
-            if self.negative_flag ^ self.overflow_flag:
+            # n ^ v
+            if self.negative_flag:
                 self.operand_fetch(term)
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
 
         elif opcode == Opcode.BG:
-            if not (self.zero_flag | (self.negative_flag ^ self.overflow_flag)):
+            # ~(z | (n ^ v))
+            if not (self.zero_flag | self.negative_flag):
                 self.operand_fetch(term)
                 self.latch_program_counter(False)
             else:
@@ -258,7 +263,7 @@ class ControlUnit1:
             self.latch_program_counter(True)
 
     def __repr__(self):
-        state = "{{TICK: {}, PC: {}, AR: {}, DR: {}, ACC: {}, IO: {}, N: {}, Z: {}, V: {}}}".format(
+        state = "{{TICK: {}, PC: {}, AR: {}, DR: {}, ACC: {}, IO: {}, N: {}, Z: {}}}".format(
             self.tact,
             self.program_counter,
             self.ar,
@@ -267,7 +272,6 @@ class ControlUnit1:
             self.device.io,
             self.negative_flag,
             self.zero_flag,
-            self.overflow_flag
         )
 
         instr = self.memory[self.program_counter]

@@ -139,7 +139,7 @@ class Parser:
 
     # Production rules.
 
-    # program ::= {statement}
+    # program ::= <statement>
     def program(self):
         while self.checkToken(TokenType.NEWLINE):
             self.nextToken()
@@ -246,7 +246,7 @@ class Parser:
             self.strings[ident] = word
             self.nextToken()
 
-        # ident "[ + | - | / | % ]=" expression (for int only)
+        # ident "[ + | - | / | * | % ]=" expression (for int only)
         elif self.checkToken(TokenType.IDENT):
             ident1 = self.curToken.text
             self.nextToken()
@@ -398,7 +398,8 @@ class Parser:
         # Optional unary +/-
         token = None
         if self.checkToken(TokenType.PLUS) or self.checkToken(TokenType.MINUS):
-            token = '-'
+            if self.checkToken(TokenType.MINUS):
+                token = '-'
             self.nextToken()
         self.primary()
         if token == '-':

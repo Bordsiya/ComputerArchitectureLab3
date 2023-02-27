@@ -85,3 +85,24 @@
 <digit> ::= [0-9]
 <digit_from_1> ::= [1-9]
 ```
+
+## Примеры ##
+```js
+// Euler 1 problem
+int sum = 0
+int i = 0
+while (i < 1000)
+	if (i % 3 == 0)
+	    if (i % 5 == 0)
+	        sum += 1
+	    endif
+	endif
+	i += 1
+endwhile
+print(sum)
+```
+
+```js
+string hw = "hello world!"
+print(hw)
+```

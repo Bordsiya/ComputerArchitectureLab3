@@ -103,6 +103,7 @@ print(sum)
 ```
 
 ```js
+// Hello world program
 string hw = "hello world!"
 print(hw)
 ```

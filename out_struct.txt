@@ -1,0 +1,146 @@
+[
+    {
+        "opcode": "DATA",
+        "term": [
+            0,
+            0,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            1,
+            0,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            2,
+            0,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "IN",
+        "term": [
+            3,
+            "0",
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "ST",
+        "term": [
+            4,
+            2,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "LD",
+        "term": [
+            5,
+            2,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "ST",
+        "term": [
+            6,
+            0,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "LD",
+        "term": [
+            7,
+            "0",
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "ST",
+        "term": [
+            8,
+            1,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "LD",
+        "term": [
+            9,
+            0,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "CMP",
+        "term": [
+            10,
+            1,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "BLE",
+        "term": [
+            11,
+            17,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "LD",
+        "term": [
+            12,
+            2,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "OUT",
+        "term": [
+            13,
+            "0",
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "IN",
+        "term": [
+            14,
+            "0",
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "ST",
+        "term": [
+            15,
+            2,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "JUMP",
+        "term": [
+            16,
+            5,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "HLT",
+        "term": [
+            17,
+            "0",
+            "DIRECT"
+        ]
+    }
+]

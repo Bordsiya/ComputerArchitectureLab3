@@ -288,7 +288,7 @@ HLT
         "opcode": "OUT",
         "term": [
             16,
-            "0",
+            0,
             "DIRECT"
         ]
     },
@@ -304,7 +304,7 @@ HLT
         "opcode": "INC",
         "term": [
             18,
-            "0",
+            0,
             "DIRECT"
         ]
     },
@@ -328,7 +328,7 @@ HLT
         "opcode": "HLT",
         "term": [
             21,
-            "0",
+            0,
             "DIRECT"
         ]
     }

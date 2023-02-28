@@ -629,6 +629,46 @@ HLT
 	</tr>
 </table>
 
+
+### Кодирование инструкций ###
+- Машинный код хранится в виде JSON-списка
+- Каждый элемент состоит из `opcode` и `term`
+
+Примеры:
+- DATA
+```json
+{
+        "opcode": "DATA",
+        "term": [
+            1,
+            0,
+            "DIRECT"
+        ]
+    }
+```
+- Addressed command
+```json
+{
+        "opcode": "LD",
+        "term": [
+            14,
+            13,
+            "ABSOLUTE"
+        ]
+    }
+```
+- Unadressed command
+```json
+{
+        "opcode": "IN",
+        "term": [
+            14,
+            "0",
+            "DIRECT"
+        ]
+    }
+```
+
 ## Модель процессора ##
 Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine1)
 

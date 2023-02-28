@@ -335,12 +335,306 @@ HLT
 ]
 ```
 
+## Система команд ##
+### Особенности ###
+- Машинное слово = 32 бита, знаковое
+- Память:
+	- адресуется через регистр `AR`
+	- может быть прочитана в регистр `DR`
+	- может быть записана из регистра `ACC`
+- ALU:
+	- поддерживаемые операции: сложение/вычитание/деление/умножение/взятие остатка от деления
+	- на левый вход принимает `ACC`
+	- на правый вход принимает `DR`
+	- по результату операции выставляет флаги: N и Z
+- `PC` = счетчик команд: инкрементируется после каждой инструкции или перезаписывается инструкцией перехода
+- Прерываний нет
+- Ввод-вывод - port-mapped. Осуществляется посредством взаимодействия регистра `IO` с регистром `ACC`
+
+### Набор инструкций ###
+<table>
+	<tr>
+		<td>Syntax</td>
+		<td>Кол-во тактов</td>
+		<td>Циклы</td>
+		<td>Comment</td>
+	</tr>
+	<tr>
+		<td>ADD</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			ACC -> ACC + DR
+		</td>
+	</tr>
+	<tr>
+		<td>SUB</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			ACC -> ACC - DR
+		</td>
+	</tr>
+	<tr>
+		<td>DIV</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			ACC -> ACC / DR
+		</td>
+	</tr>
+	<tr>
+		<td>MUL</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			ACC -> ACC * DR
+		</td>
+	</tr>
+	<tr>
+		<td>MOD</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			ACC -> ACC % DR
+		</td>
+	</tr>
+	<tr>
+		<td>CMP</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Установить флаги по результату ACC - DR
+		</td>
+	</tr>
+	<tr>
+		<td>LOOP</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если DR > 0: PC -> PC + 1
+		</td>
+	</tr>
+	<tr>
+		<td>LD</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			ACC -> 0 + DR
+		</td>
+	</tr>
+	<tr>
+		<td>ST</td>
+		<td>2</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			AR -> M; MEM[AR] -> ACC
+		</td>
+	</tr>
+	<tr>
+		<td>JMP</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>BEQ</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если z == 1: PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>BNE</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если z == 0: PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>BGE</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если n == 0: PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>BLE</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если z v n == 1: PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>BL</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если n == 1: PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>BG</td>
+		<td>1</td>
+		<td>
+			Operand/Execution
+		</td>
+		<td>
+			Если z v n == 0: PC -> DR
+		</td>
+	</tr>
+	<tr>
+		<td>NOP</td>
+		<td>0</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			Нет операции
+		</td>
+	</tr>
+	<tr>
+		<td>HLT</td>
+		<td>0</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			Останов
+		</td>
+	</tr>
+	<tr>
+		<td>CLA</td>
+		<td>1</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			ACC -> 0
+		</td>
+	</tr>
+	<tr>
+		<td>IN</td>
+		<td>1</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			ACC -> IO
+		</td>
+	</tr>
+	<tr>
+		<td>OUT</td>
+		<td>1</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			IO -> ACC
+		</td>
+	</tr>
+	<tr>
+		<td>INC</td>
+		<td>2</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			DR -> 1; ACC -> ACC + DR
+		</td>
+	</tr>
+	<tr>
+		<td>DEC</td>
+		<td>2</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			DR -> -1; ACC -> ACC + DR
+		</td>
+	</tr>
+	<tr>
+		<td>NEG</td>
+		<td>2</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			DR -> -1; ACC -> ACC * DR
+		</td>
+	</tr>
+</table>
+
+### Циклы ###
+- Operand Fetch
+- Execution Fetch
+
+### Режимы адресации ###
+<table>
+	<tr>
+		<td>Режим</td>
+		<td>Comment</td>
+		<td>Кол-во тактов</td>
+	</tr>
+	<tr>
+		<td>DIRECT</td>
+		<td>DR -> M</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>ABSOLUTE</td>
+		<td>DR -> MEM[M]</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>RELATIVE</td>
+		<td>DR -> MEM[МEM[M]]</td>
+		<td>4</td>
+	</tr>
+</table>
+
 ## Модель процессора ##
 Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine1)
 
 Интерфейс командной строки: `machinery.py <code_file> <input_file>`
 ### Схема DataPath и ControlUnit ###
-![processor_model_3](https://user-images.githubusercontent.com/22819920/221853888-6d30d600-2234-40a9-b796-78e2d971933e.png)
+![processor_model_4](https://user-images.githubusercontent.com/22819920/221947314-d17ca1b1-aeba-4c07-a5de-65ee9b8bfb3a.png)
 - Управление симуляцией организовано в функции `simulate`
 - Остановка симуляции осуществляется при помощи исключений:
 	- `StopIteration` = при достижении *HLT* инструкции

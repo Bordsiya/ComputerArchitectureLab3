@@ -348,3 +348,45 @@ HLT
 
 ## Апробация ##
 TODO: тесты
+<table>
+<tr>
+	<td>ФИО</td> 
+	<td>алг</td> 
+	<td>LoC</td> 
+	<td>code байт</td> 
+	<td>code инстр</td> 
+	<td>инстр</td> 
+	<td>такт</td> 
+	<td>вариант</td>
+</tr>
+<tr>
+	<td>Бордун А.В.</td> 
+	<td>hello</td> 
+	<td>3</td> 
+	<td>-</td> 
+	<td>22</td> 
+	<td>100</td> 
+	<td>174</td> 
+	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
+</tr>
+<tr>
+	<td>Бордун А.В.</td>
+	<td>cat</td>
+	<td>7</td>
+	<td>-</td>
+	<td>18</td>
+	<td>132</td>
+	<td>249</td>
+	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
+</tr>
+<tr>
+	<td>Бордун А.В.</td>
+	<td>prob1</td>
+	<td>12</td>
+	<td>-</td>
+	<td>59</td>
+	<td>29366</td>
+	<td>65775</td>
+	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
+</tr>
+</table>

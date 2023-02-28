@@ -43,7 +43,7 @@
 - Поддерживаются только целые числа
 - Поддерживаются комментарии в формате: // comment
 
-## BNF ##
+### BNF ###
 ```ebnf
 <program> ::= <block_of_statements>
 <block_of_statements> ::= <statement> <block_of_statements> | <statement>
@@ -86,7 +86,7 @@
 <digit_from_1> ::= [1-9]
 ```
 
-## Примеры ##
+### Примеры ###
 ```js
 // Euler 1 problem
 int sum = 0
@@ -657,17 +657,22 @@ HLT
         ]
     }
 ```
-- Unadressed command
+- Unaddressed command
 ```json
 {
         "opcode": "IN",
         "term": [
             14,
-            "0",
+            0,
             "DIRECT"
         ]
     }
 ```
+- `opcode` = код операции
+- `term` = описание операции
+- `term[0]` = line
+- `term[1]` = arg
+- `term[2]` = arg_mode
 
 ## Модель процессора ##
 Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine1)
@@ -677,7 +682,7 @@ HLT
 ![processor_model_4](https://user-images.githubusercontent.com/22819920/221947314-d17ca1b1-aeba-4c07-a5de-65ee9b8bfb3a.png)
 - Управление симуляцией организовано в функции `simulate`
 - Остановка симуляции осуществляется при помощи исключений:
-	- `StopIteration` = при достижении *HLT* инструкции
+	- `StopIteration` = при достижении `HLT` инструкции
 	- `MachineException` = при возникновении рантайм-ошибок (деление на 0, слишком большая программа, слишком долгое исполнение и т.д.)
 
 ## Апробация ##
@@ -700,7 +705,7 @@ TODO: тесты
 	<td>-</td> 
 	<td>22</td> 
 	<td>100</td> 
-	<td>174</td> 
+	<td>274</td> 
 	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
 </tr>
 <tr>
@@ -710,7 +715,7 @@ TODO: тесты
 	<td>-</td>
 	<td>18</td>
 	<td>132</td>
-	<td>249</td>
+	<td>381</td>
 	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
 </tr>
 <tr>
@@ -720,7 +725,7 @@ TODO: тесты
 	<td>-</td>
 	<td>59</td>
 	<td>29366</td>
-	<td>65775</td>
+	<td>95141</td>
 	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
 </tr>
 </table>

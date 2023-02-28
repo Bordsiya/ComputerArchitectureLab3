@@ -107,3 +107,244 @@ print(sum)
 string hw = "hello world!"
 print(hw)
 ```
+
+## Транслятор ##
+Реализован в [translator](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/translator)
+
+Интерфейс командной строки: `translate.py <input_file> <target_file>`
+
+Этапы трансляции:
+- Анализ кода с помощью Лексера: разбор кода на токены, выявления ошибок
+- Парсинг токенов с помощью Парсера в соответствии с BNF, выявление ошибок: преобразование комбинаций токенов в последовательности из Term'ов, добавление/обновление необходимых переменных и лейблов, после обработки кода - соединение переменных/лейблов и инструкций воедино (переподсчет адресов, замена названий аргументов на соответвующие адреса)
+
+### Пример ###
+```js
+// Hello world program
+string hw = "hello world!"
+print(hw)
+```
+
+Состояние преобразованного кода до переподсчета адресов можно для простоты рассматривать как:
+```asm
+hwptr: hw
+hw: 
+68
+65
+6C
+6C
+6F
+20
+77
+6F
+72
+6C
+64
+21
+0
+start: 
+loop1: LD (hwptr)
+BEQ $end_loop1
+OUT
+LD $hwptr
+INC
+ST $hwptr
+JUMP $loop1
+end_loop1: 
+HLT
+```
+
+После соединения переменных/лейблов и инструкций, преобразования в Term'ы, переподсчета адресов и замены аргументов на их адреса:
+```json
+[
+    {
+        "opcode": "DATA",
+        "term": [
+            0,
+            1,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            1,
+            104,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            2,
+            101,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            3,
+            108,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            4,
+            108,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            5,
+            111,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            6,
+            32,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            7,
+            119,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            8,
+            111,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            9,
+            114,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            10,
+            108,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            11,
+            100,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            12,
+            33,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "DATA",
+        "term": [
+            13,
+            0,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "LD",
+        "term": [
+            14,
+            0,
+            "RELATIVE"
+        ]
+    },
+    {
+        "opcode": "BEQ",
+        "term": [
+            15,
+            21,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "OUT",
+        "term": [
+            16,
+            "0",
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "LD",
+        "term": [
+            17,
+            0,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "INC",
+        "term": [
+            18,
+            "0",
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "ST",
+        "term": [
+            19,
+            0,
+            "ABSOLUTE"
+        ]
+    },
+    {
+        "opcode": "JUMP",
+        "term": [
+            20,
+            14,
+            "DIRECT"
+        ]
+    },
+    {
+        "opcode": "HLT",
+        "term": [
+            21,
+            "0",
+            "DIRECT"
+        ]
+    }
+]
+```
+
+## Модель процессора ##
+Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine1)
+
+Интерфейс командной строки: `machinery.py <code_file> <input_file>`
+### Схема DataPath и ControlUnit ###
+![processor_model_3](https://user-images.githubusercontent.com/22819920/221853888-6d30d600-2234-40a9-b796-78e2d971933e.png)
+- Управление симуляцией организовано в функции `simulate`
+- Остановка симуляции осуществляется при помощи исключений:
+	- `StopIteration` = при достижении *HLT* инструкции
+	- `MachineException` = при возникновении рантайм-ошибок (деление на 0, слишком большая программа, слишком долгое исполнение и т.д.)
+
+## Апробация ##
+TODO: тесты

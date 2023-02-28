@@ -5,25 +5,25 @@
 ## Вариант ##
 `alg | acc | neum | hw | instr | struct | stream | port | prob1`
 
-- `alg` = *javascript*-подобный язык
-- `acc` = все вычисления построены вокруг регистра *ACC*, выполняющего роль аккумулятора
+- `alg` = `javascript`-подобный язык
+- `acc` = все вычисления построены вокруг регистра `ACC`, выполняющего роль аккумулятора
 - `neum` = команды и данные хранятся в общей памяти
-- `hw` = *Control Unit* реализован как часть модели, микрокода нет
+- `hw` = `Control Unit` реализован как часть модели, микрокода нет
 - `instr` = каждая инструкция расписана потактово, но в журнале фиксируется только результат выполнения
 - `struct` = инструкции представляются в виде высокоуровневой структуры
 - `stream` = ввод-вывод реализован как поток данных
-- `port` = передача данных в процессор реализовано через команды (*IN*, *OUT*)
+- `port` = передача данных в процессор реализовано через команды (`IN`, `OUT`)
 - `prob1` = задача Эйлера №1 - найти сумму чисел, кратных 3 и 5, которые меньше 1000
 
 ## Язык программирования ##
 Типизация: сильная статическая
 
-Язык: упрощенный *javascript*
-- Типы: *INT*/*STRING*
-- *IF* (comparison) ... *ENDIF*
-- *WHILE* (comparison) ... *ENDWHILE*
-- *PRINT*(variable) = передает значение переменной в выходной буфер
-- *INPUT*(variable) = считывает значение из входного буфера в переменную
+Язык: упрощенный `javascript`
+- Типы: `int`/`string`
+- `if (comparison) ... endif`
+- `while (comparison) ... endwhile`
+- `print(variable)` = передает значение переменной в выходной буфер
+- `input(variable)` = считывает значение из входного буфера в переменную
 - Ветвления: >=, <=, ==, <, >, !=
 - Математические операции: 
   - term + term
@@ -39,7 +39,7 @@
   - variable /= expression
   - variable *= expression
   - variable %= expression
-- Аргументами математических операций могут выступать литералы типа *INT* и переменные типа *INT*
+- Аргументами математических операций могут выступать литералы типа `int` и переменные типа `int`
 - Поддерживаются только целые числа
 - Поддерживаются комментарии в формате: // comment
 
@@ -50,12 +50,12 @@
 <statement> ::= <print_statement> | <input_statement> | <if_statement> | <while_statement> | <int_declaration> 
   | <string_declaration> | <variable_assignment> | <comment_statement>
 
-<print_statement> ::= "PRINT" "(" <ident> ")" <nl_block>
-<input_statement> ::= "INPUT" "(" <ident> ")" <nl_block>
-<if_statement> ::= "IF" "(" <comparison> ")" <nl_block> <block_of_statements> "ENDIF" <nl_block>
-<while_statement> ::= "WHILE" "(" <comparison> ")" <nl_block> <block_of_statements> "ENDWHILE" <nl_block>
-<int_declaration> ::= "INT" <ident> "=" <expression> <nl_block>
-<string_declaration> ::= "STRING" <ident> "=" <word> <nl_block>
+<print_statement> ::= "print" "(" <ident> ")" <nl_block>
+<input_statement> ::= "input" "(" <ident> ")" <nl_block>
+<if_statement> ::= "if" "(" <comparison> ")" <nl_block> <block_of_statements> "endif" <nl_block>
+<while_statement> ::= "while" "(" <comparison> ")" <nl_block> <block_of_statements> "endwhile" <nl_block>
+<int_declaration> ::= "int" <ident> "=" <expression> <nl_block>
+<string_declaration> ::= "string" <ident> "=" <word> <nl_block>
 <variable_assignment> ::= <ident> "=" <expression> <nl_block> | <ident> "+=" <expression> <nl_block> 
   | <ident> "-=" <expression> <nl_block> | <ident> "/=" <expression> <nl_block> | <ident> "*=" <expression> <nl_block> 
   | <ident> "%=" <expression> <nl_block>
@@ -114,8 +114,8 @@ print(hw)
 Интерфейс командной строки: `translate.py <input_file> <target_file>`
 
 Этапы трансляции:
-- Анализ кода с помощью Лексера: разбор кода на токены, выявления ошибок
-- Парсинг токенов с помощью Парсера в соответствии с BNF, выявление ошибок: преобразование комбинаций токенов в последовательности из Term'ов, добавление/обновление необходимых переменных и лейблов, после обработки кода - соединение переменных/лейблов и инструкций воедино (переподсчет адресов, замена названий аргументов на соответвующие адреса)
+- Анализ кода с помощью Lexer'а: разбор кода на токены, выявления ошибок
+- Парсинг токенов с помощью Parser'а в соответствии с BNF, выявление ошибок: преобразование комбинаций токенов в последовательности из Term'ов, добавление/обновление необходимых переменных и лейблов, после обработки кода - соединение переменных/лейблов и инструкций воедино (переподсчет адресов, замена названий аргументов на соответвующие адреса)
 
 ### Пример ###
 ```js

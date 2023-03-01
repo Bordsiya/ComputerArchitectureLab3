@@ -28,7 +28,7 @@ opcode_to_alu_operation = {
 
 class ControlUnit:
 
-    def __init__(self, program, device):
+    def __init__(self, program: list, device: Device):
         self.memory = program
         for addr in range(len(self.memory), MEMORY_SIZE):
             self.memory.append({'opcode': Opcode.DATA, 'arg': WORD_INIT, 'arg_mode': AddressingMode.DIRECT})
@@ -60,19 +60,19 @@ class ControlUnit:
     def latch_acc(self, val: int):
         self.acc = int(val)
 
-    def latch_program_counter(self, sel_next):
+    def latch_program_counter(self, sel_next: bool):
         if sel_next:
             self.program_counter += 1
         else:
             self.program_counter = self.dr
 
     @staticmethod
-    def check_value(val):
+    def check_value(val: int):
         if val > MAX_WORD or val < MIN_WORD:
             raise MachineException('Overflow error!')
         return val
 
-    def alu_calculate(self, operation, sel_left=True, sel_right=True):
+    def alu_calculate(self, operation: AluOperation, sel_left: bool = True, sel_right: bool = True):
         left_operand = self.acc if sel_left else 0
         right_operand = self.dr if sel_right else 0
         res = None
@@ -99,7 +99,7 @@ class ControlUnit:
         self.set_negative_flag(res)
         return self.check_value(res)
 
-    def operand_fetch(self, arg, arg_mode):
+    def operand_fetch(self, arg: int, arg_mode: AddressingMode):
         if arg_mode == AddressingMode.DIRECT:
             self.latch_dr(arg)
             self.tick()
@@ -162,7 +162,7 @@ class ControlUnit:
         elif opcode == Opcode.INC:
             self.latch_dr(1)
             self.tick()
-            res = self.alu_calculate(Opcode.ADD)
+            res = self.alu_calculate(AluOperation.ADD)
             self.latch_acc(res)
             self.tick()
 
@@ -172,7 +172,7 @@ class ControlUnit:
         elif opcode == Opcode.DEC:
             self.latch_dr(-1)
             self.tick()
-            res = self.alu_calculate(Opcode.ADD)
+            res = self.alu_calculate(AluOperation.ADD)
             self.latch_acc(res)
             self.tick()
 
@@ -189,7 +189,7 @@ class ControlUnit:
         elif opcode == Opcode.NEG:
             self.latch_dr(-1)
             self.tick()
-            res = self.alu_calculate(Opcode.MUL)
+            res = self.alu_calculate(AluOperation.MUL)
             self.latch_acc(res)
             self.tick()
 
@@ -323,7 +323,7 @@ class ControlUnit:
         return "{} {}".format(state, action)
 
 
-def simulation(input_buffer, instructions, limit):
+def simulation(input_buffer: list, instructions: list, limit: int):
     if len(instructions) > MEMORY_SIZE:
         raise MachineException('Program is too large')
 

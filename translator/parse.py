@@ -6,7 +6,7 @@ from translator.lex import *
 
 # Parser object keeps track of current token and checks if the code matches the grammar
 class Parser:
-    def __init__(self, lexer):
+    def __init__(self, lexer: Lexer):
         self.lexer = lexer
 
         self.integers = {}
@@ -26,13 +26,13 @@ class Parser:
         self.next_token()
         self.next_token()
 
-    def check_token(self, kind):
+    def check_token(self, kind: TokenType):
         return kind == self.cur_token.kind
 
-    def check_peek(self, kind):
+    def check_peek(self, kind: TokenType):
         return kind == self.peek_token.kind
 
-    def match(self, kind):
+    def match(self, kind: TokenType):
         if not self.check_token(kind):
             raise TranslationException("Expected " + kind.name + ", got " + self.cur_token.kind.name)
         self.next_token()
@@ -53,24 +53,24 @@ class Parser:
             TokenType.PLUSEQ)
 
     @staticmethod
-    def loop_begin(number):
+    def loop_begin(number: int):
         return 'loop' + str(number)
 
     @staticmethod
-    def loop_end(number):
+    def loop_end(number: int):
         return 'end_loop' + str(number)
 
     @staticmethod
-    def if_done(number):
+    def if_done(number: int):
         return 'if_done' + str(number)
 
     @staticmethod
-    def exp_op(number):
+    def exp_op(number: int):
         return 'exp_op' + str(number)
 
     @staticmethod
-    def mk_ptr(label):
-        return str(label) + 'ptr'
+    def mk_ptr(label: str):
+        return label + 'ptr'
 
     #  Put defined in code variables in Term format to the 'variables' array
     def add_variables(self):

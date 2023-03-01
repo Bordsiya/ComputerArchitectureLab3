@@ -3,20 +3,6 @@ import enum
 from exceptions import TranslationException
 
 
-class Token:
-    def __init__(self, token_text, token_kind):
-        self.text = token_text  # The token's actual text. Used for identifiers, strings, and numbers
-        self.kind = token_kind  # The TokenType that this token is classified as
-
-    @staticmethod
-    def checkIfKeyword(token_text):
-        for kind in TokenType:
-            # Relies on all keyword enum values being 1XX
-            if kind.name == token_text.upper() and 100 <= kind.value < 200:
-                return kind
-        return None
-
-
 # TokenType is our enum for all the types of tokens
 class TokenType(enum.Enum):
     EOF = -1
@@ -55,8 +41,22 @@ class TokenType(enum.Enum):
     MODEQ = 216
 
 
+class Token:
+    def __init__(self, token_text: str, token_kind: TokenType):
+        self.text = token_text  # The token's actual text. Used for identifiers, strings, and numbers
+        self.kind = token_kind  # The TokenType that this token is classified as
+
+    @staticmethod
+    def checkIfKeyword(token_text: str):
+        for kind in TokenType:
+            # Relies on all keyword enum values being 1XX
+            if kind.name == token_text.upper() and 100 <= kind.value < 200:
+                return kind
+        return None
+
+
 class Lexer:
-    def __init__(self, input):
+    def __init__(self, input: str):
         self.source = input + '\n'
         self.cur_char = ''
         self.cur_pos = -1

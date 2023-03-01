@@ -1,6 +1,6 @@
 import sys
 
-from translator.isa import write_code
+from isa import write_code
 from translator.lex import Lexer
 from translator.parse import Parser, TranslationException
 

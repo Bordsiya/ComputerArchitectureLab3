@@ -2,10 +2,10 @@ import enum
 import logging
 import sys
 
-from exceptions.exceptions import MachineException
+from exceptions import MachineException
 from machine.device import Device
 from machine.config import MEMORY_SIZE, WORD_INIT, START_ADDR, MAX_WORD, MIN_WORD
-from translator.isa import read_code, Opcode, Term, AddressingMode
+from isa import read_code, Opcode, Term, AddressingMode
 
 
 class AluOperation(str, enum.Enum):
@@ -26,12 +26,13 @@ opcode_to_alu_operation = {
 }
 
 
-class ControlUnit1:
+class ControlUnit:
 
     def __init__(self, program, device):
         self.memory = program
         for addr in range(len(self.memory), MEMORY_SIZE):
             self.memory.append({'opcode': Opcode.DATA, 'term': Term(addr, WORD_INIT, AddressingMode.DIRECT)})
+
         self.program_counter = START_ADDR
         self.acc = 0
         self.ar = 0
@@ -296,12 +297,10 @@ class ControlUnit1:
 
         instr = self.memory[self.program_counter]
         opcode = instr['opcode']
-        line = instr['term'][0]
         arg = instr['term'][1]
         arg_mode = instr['term'][2]
-        action = "{{{}, {}, {}, {}}}".format(
+        action = "{{{}, {}, {}}}".format(
             opcode,
-            line,
             arg,
             arg_mode
         )
@@ -312,9 +311,10 @@ class ControlUnit1:
 def simulation(input_buffer, instructions, limit):
     if len(instructions) > MEMORY_SIZE:
         raise MachineException('Program is too large')
+
     device = Device()
-    device.input = input_buffer
-    control_unit = ControlUnit1(instructions, device)
+    device.load(input_buffer)
+    control_unit = ControlUnit(instructions, device)
 
     instr_counter = 0
     try:
@@ -323,8 +323,6 @@ def simulation(input_buffer, instructions, limit):
                 raise MachineException('Too long execution! Increase limit')
 
             logging.debug(control_unit)
-            logging.debug(control_unit.memory[0:14])
-
             control_unit.decode_and_execute_instruction()
             instr_counter += 1
     except StopIteration:
@@ -344,9 +342,6 @@ def main(args):
         for char in input_text:
             input_buffer.append(char)
     input_buffer.append("\0")
-
-    print(code)
-    print(input_buffer)
 
     try:
         output, ticks, instructions = simulation(input_buffer, code, 10000000)

@@ -1,6 +1,6 @@
 import re
 
-from translator.isa import AddressingMode, Opcode, addressed_commands
+from isa import AddressingMode, Opcode, addressed_commands
 from translator.lex import *
 
 

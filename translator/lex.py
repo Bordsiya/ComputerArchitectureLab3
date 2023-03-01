@@ -1,6 +1,6 @@
 import enum
 
-from exceptions.exceptions import TranslationException
+from exceptions import TranslationException
 
 
 class Token:

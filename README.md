@@ -340,7 +340,17 @@ print(hw)
 		</td>
 	</tr>
 	<tr>
-		<td>OUT</td>
+		<td>OUTC</td>
+		<td>1</td>
+		<td>
+			Execution
+		</td>
+		<td>
+			IO -> chr(ACC)
+		</td>
+	</tr>
+	<tr>
+		<td>OUTI</td>
 		<td>1</td>
 		<td>
 			Execution
@@ -420,40 +430,27 @@ print(hw)
 ```json
 {
         "opcode": "DATA",
-        "term": [
-            1,
-            0,
-            "DIRECT"
-        ]
+        "arg": 0,
+        "arg_mode": "DIRECT"
     }
 ```
 - Addressed command
 ```json
 {
         "opcode": "LD",
-        "term": [
-            14,
-            13,
-            "ABSOLUTE"
-        ]
+        "arg": 13,
+        "arg_mode": "ABSOLUTE"
     }
 ```
 - Unaddressed command
 ```json
 {
-        "opcode": "IN",
-        "term": [
-            14,
-            0,
-            "DIRECT"
-        ]
+        "opcode": "HLT"
     }
 ```
 - `opcode` = код операции
-- `term` = описание операции
-- `term[0]` = line
-- `term[1]` = arg
-- `term[2]` = arg_mode
+- `arg` = адрес аргумента операции
+- `arg_mode` = режим адресации
 
 ## Транслятор ##
 Реализован в [translator](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/translator)
@@ -467,7 +464,7 @@ print(hw)
 - Парсинг токенов с помощью Parser'а в соответствии с BNF:
 	- выявление ошибок
 	- преобразование комбинаций токенов в последовательности из Term'ов
-	- добавление/обновление необходимых переменных и лейблов
+	- добавление/обновление необходимых переменных и лейблов с запоминаением их адресов
 	- после обработки исходного кода - соединение переменных/лейблов и инструкций воедино (переподсчет адресов, замена названий аргументов на соответвующие адреса)
 
 ### Пример ###
@@ -511,179 +508,107 @@ HLT
 [
     {
         "opcode": "DATA",
-        "term": [
-            0,
-            1,
-            "ABSOLUTE"
-        ]
+        "arg": 1,
+        "arg_mode": "ABSOLUTE"
     },
     {
         "opcode": "DATA",
-        "term": [
-            1,
-            104,
-            "DIRECT"
-        ]
+        "arg": 104,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            2,
-            101,
-            "DIRECT"
-        ]
+        "arg": 101,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            3,
-            108,
-            "DIRECT"
-        ]
+        "arg": 108,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            4,
-            108,
-            "DIRECT"
-        ]
+        "arg": 108,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            5,
-            111,
-            "DIRECT"
-        ]
+        "arg": 111,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            6,
-            32,
-            "DIRECT"
-        ]
+        "arg": 32,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            7,
-            119,
-            "DIRECT"
-        ]
+        "arg": 119,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            8,
-            111,
-            "DIRECT"
-        ]
+        "arg": 111,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            9,
-            114,
-            "DIRECT"
-        ]
+        "arg": 114,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            10,
-            108,
-            "DIRECT"
-        ]
+        "arg": 108,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            11,
-            100,
-            "DIRECT"
-        ]
+        "arg": 100,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            12,
-            33,
-            "DIRECT"
-        ]
+        "arg": 33,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "DATA",
-        "term": [
-            13,
-            0,
-            "DIRECT"
-        ]
+        "arg": 0,
+        "arg_mode": "DIRECT"
     },
     {
         "opcode": "LD",
-        "term": [
-            14,
-            0,
-            "RELATIVE"
-        ]
+        "arg": 0,
+        "arg_mode": "RELATIVE"
     },
     {
         "opcode": "BEQ",
-        "term": [
-            15,
-            21,
-            "DIRECT"
-        ]
+        "arg": 21,
+        "arg_mode": "DIRECT"
     },
     {
-        "opcode": "OUT",
-        "term": [
-            16,
-            0,
-            "DIRECT"
-        ]
+        "opcode": "OUTC"
     },
     {
         "opcode": "LD",
-        "term": [
-            17,
-            0,
-            "ABSOLUTE"
-        ]
+        "arg": 0,
+        "arg_mode": "ABSOLUTE"
     },
     {
-        "opcode": "INC",
-        "term": [
-            18,
-            0,
-            "DIRECT"
-        ]
+        "opcode": "INC"
     },
     {
         "opcode": "ST",
-        "term": [
-            19,
-            0,
-            "ABSOLUTE"
-        ]
+        "arg": 0,
+        "arg_mode": "ABSOLUTE"
     },
     {
         "opcode": "JUMP",
-        "term": [
-            20,
-            14,
-            "DIRECT"
-        ]
+        "arg": 14,
+        "arg_mode": "DIRECT"
     },
     {
-        "opcode": "HLT",
-        "term": [
-            21,
-            0,
-            "DIRECT"
-        ]
+        "opcode": "HLT"
     }
 ]
 ```
@@ -716,6 +641,7 @@ ControlUnit:
 - Остановка симуляции осуществляется при помощи исключений:
 	- `StopIteration` = при достижении `HLT` инструкции
 	- `MachineException` = при возникновении рантайм-ошибок (деление на 0, слишком большая программа, слишком долгое исполнение и т.д.)
+	- `EOFException` = при ошибке `Buffer is empty`
 
 ## Апробация ##
 TODO: тесты

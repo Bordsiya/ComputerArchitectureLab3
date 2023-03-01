@@ -45,8 +45,8 @@ class AddressingMode(str, enum.Enum):
     RELATIVE = "RELATIVE"
 
 
-class Term(namedtuple("Term", "line arg mode")):
-    """struct description"""
+class Term(namedtuple("Term", "opcode arg arg_mode")):
+    """Instruction description"""
 
 
 def write_code(filename, code):
@@ -60,7 +60,7 @@ def read_code(filename):
 
     for instr in code:
         instr['opcode'] = Opcode(instr['opcode'])
-        if 'term' in instr:
-            instr['term'] = Term(instr['term'][0], instr['term'][1], AddressingMode(instr['term'][2]))
+        if 'arg' in instr:
+            instr['arg_mode'] = AddressingMode(instr['arg_mode'])
 
     return code

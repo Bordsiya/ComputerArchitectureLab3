@@ -1,22 +1,23 @@
 import enum
-import sys
+
+from exceptions.exceptions import TranslationException
 
 
 class Token:
-    def __init__(self, tokenText, tokenKind):
-        self.text = tokenText  # The token's actual text. Used for identifiers, strings, and numbers.
-        self.kind = tokenKind  # The TokenType that this token is classified as.
+    def __init__(self, token_text, token_kind):
+        self.text = token_text  # The token's actual text. Used for identifiers, strings, and numbers
+        self.kind = token_kind  # The TokenType that this token is classified as
 
     @staticmethod
-    def checkIfKeyword(tokenText):
+    def checkIfKeyword(token_text):
         for kind in TokenType:
-            # Relies on all keyword enum values being 1XX.
-            if kind.name == tokenText.upper() and kind.value >= 100 and kind.value < 200:
+            # Relies on all keyword enum values being 1XX
+            if kind.name == token_text.upper() and 100 <= kind.value < 200:
                 return kind
         return None
 
 
-# TokenType is our enum for all the types of tokens.
+# TokenType is our enum for all the types of tokens
 class TokenType(enum.Enum):
     EOF = -1
     NEWLINE = 0
@@ -26,181 +27,193 @@ class TokenType(enum.Enum):
     OPEN_PAREN_ROUND = 4
     CLOSE_PAREN_ROUND = 5
     # Keywords.
-    PRINT = 101
-    INPUT = 102
-    IF = 103
-    ENDIF = 104
-    WHILE = 105
-    ENDWHILE = 106
-    INT = 107
-    STRING = 108
+    PRINT = 100
+    INPUT = 101
+    IF = 102
+    ENDIF = 103
+    WHILE = 104
+    ENDWHILE = 105
+    INT = 106
+    STRING = 107
     # Operators.
-    EQ = 201
-    PLUS = 202
-    MINUS = 203
-    ASTERISK = 204
-    SLASH = 205
-    EQEQ = 206
-    NOTEQ = 207
-    LT = 208
-    LTEQ = 209
-    GT = 210
-    GTEQ = 211
-    MOD = 212
-    PLUSEQ = 213
-    MINUSEQ = 214
-    ASTERISKEQ = 215
-    SLASHEQ = 216
-    MODEQ = 217
+    EQ = 200
+    PLUS = 201
+    MINUS = 202
+    ASTERISK = 203
+    SLASH = 204
+    EQEQ = 205
+    NOTEQ = 206
+    LT = 207
+    LTEQ = 208
+    GT = 209
+    GTEQ = 210
+    MOD = 211
+    PLUSEQ = 212
+    MINUSEQ = 213
+    ASTERISKEQ = 214
+    SLASHEQ = 215
+    MODEQ = 216
 
 
 class Lexer:
     def __init__(self, input):
         self.source = input + '\n'
-        self.curChar = ''
-        self.curPos = -1
-        self.nextChar()
+        self.cur_char = ''
+        self.cur_pos = -1
+        self.next_char()
 
-    def nextChar(self):
-        self.curPos += 1
-        if self.curPos >= len(self.source):
-            self.curChar = '\0'  # EOF
+    def next_char(self):
+        self.cur_pos += 1
+        if self.cur_pos >= len(self.source):
+            self.cur_char = '\0'  # EOF
         else:
-            self.curChar = self.source[self.curPos]
+            self.cur_char = self.source[self.cur_pos]
 
     def peek(self):
-        if self.curPos + 1 >= len(self.source):
+        if self.cur_pos + 1 >= len(self.source):
             return '\0'
-        return self.source[self.curPos + 1]
+        return self.source[self.cur_pos + 1]
 
-    def abort(self, message):
-        sys.exit("Lexing error. " + message)
+    def skip_whitespace(self):
+        while self.cur_char == ' ' or self.cur_char == '\t' or self.cur_char == '\r':
+            self.next_char()
 
-    def skipWhitespace(self):
-        while self.curChar == ' ' or self.curChar == '\t' or self.curChar == '\r':
-            self.nextChar()
+    def skip_comment(self):
+        if self.cur_char == '/' and self.peek() == '/':
+            while self.cur_char != '\n':
+                self.next_char()
 
-    def skipComment(self):
-        if self.curChar == '/' and self.peek() == '/':
-            while self.curChar != '\n':
-                self.nextChar()
+    def get_token(self):
+        self.skip_whitespace()
+        self.skip_comment()
 
-    # Return the next token.
-    def getToken(self):
-        self.skipWhitespace()
-        self.skipComment()
         token = None
+        if self.cur_char == '+':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.PLUSEQ)
+            else:
+                token = Token(self.cur_char, TokenType.PLUS)
 
-        if self.curChar == '+':
+        elif self.cur_char == '-':
             if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.PLUSEQ)
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.MINUSEQ)
             else:
-                token = Token(self.curChar, TokenType.PLUS)
-        elif self.curChar == '-':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.MINUSEQ)
-            else:
-                token = Token(self.curChar, TokenType.MINUS)
-        elif self.curChar == '*':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.ASTERISKEQ)
-            else:
-                token = Token(self.curChar, TokenType.ASTERISK)
-        elif self.curChar == '/':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.SLASHEQ)
-            else:
-                token = Token(self.curChar, TokenType.SLASH)
-        elif self.curChar == '%':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.MODEQ)
-            else:
-                token = Token(self.curChar, TokenType.MOD)
-        elif self.curChar == '=':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.EQEQ)
-            else:
-                token = Token(self.curChar, TokenType.EQ)
-        elif self.curChar == '>':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.GTEQ)
-            else:
-                token = Token(self.curChar, TokenType.GT)
-        elif self.curChar == '<':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.LTEQ)
-            else:
-                token = Token(self.curChar, TokenType.LT)
-        elif self.curChar == '!':
-            if self.peek() == '=':
-                lastChar = self.curChar
-                self.nextChar()
-                token = Token(lastChar + self.curChar, TokenType.NOTEQ)
-            else:
-                self.abort("Expected !=, got !" + self.peek())
-        elif self.curChar == '(':
-            token = Token(self.curChar, TokenType.OPEN_PAREN_ROUND)
-        elif self.curChar == ')':
-            token = Token(self.curChar, TokenType.CLOSE_PAREN_ROUND)
-        elif self.curChar == '\"':
-            # Get characters between quotations.
-            self.nextChar()
-            startPos = self.curPos
+                token = Token(self.cur_char, TokenType.MINUS)
 
-            while self.curChar != '\"':
-                # Don't allow special characters in the string. No escape characters, newlines, tabs, or %.
-                if self.curChar == '\r' or self.curChar == '\n' or self.curChar == '\t' or self.curChar == '\\' or self.curChar == '%':
-                    self.abort("Illegal character in string.")
-                self.nextChar()
+        elif self.cur_char == '*':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.ASTERISKEQ)
+            else:
+                token = Token(self.cur_char, TokenType.ASTERISK)
 
-            tokText = self.source[startPos: self.curPos]
-            token = Token(tokText, TokenType.WORD)
-        elif self.curChar.isdigit():
-            # Leading character is a digit, so this must be a number.
-            startPos = self.curPos
+        elif self.cur_char == '/':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.SLASHEQ)
+            else:
+                token = Token(self.cur_char, TokenType.SLASH)
+
+        elif self.cur_char == '%':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.MODEQ)
+            else:
+                token = Token(self.cur_char, TokenType.MOD)
+
+        elif self.cur_char == '=':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.EQEQ)
+            else:
+                token = Token(self.cur_char, TokenType.EQ)
+
+        elif self.cur_char == '>':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.GTEQ)
+            else:
+                token = Token(self.cur_char, TokenType.GT)
+
+        elif self.cur_char == '<':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.LTEQ)
+            else:
+                token = Token(self.cur_char, TokenType.LT)
+
+        elif self.cur_char == '!':
+            if self.peek() == '=':
+                last_char = self.cur_char
+                self.next_char()
+                token = Token(last_char + self.cur_char, TokenType.NOTEQ)
+            else:
+                raise TranslationException("Expected !=, got !" + self.peek())
+
+        elif self.cur_char == '(':
+            token = Token(self.cur_char, TokenType.OPEN_PAREN_ROUND)
+
+        elif self.cur_char == ')':
+            token = Token(self.cur_char, TokenType.CLOSE_PAREN_ROUND)
+
+        elif self.cur_char == '\"':
+            # Get characters between quotations
+            self.next_char()
+            start_pos = self.cur_pos
+
+            while self.cur_char != '\"':
+                # Don't allow special characters in the string. No escape characters, newlines, tabs, or %
+                if self.cur_char == '\r' or self.cur_char == '\n' or self.cur_char == '\t' \
+                        or self.cur_char == '\\' or self.cur_char == '%':
+                    raise TranslationException("Illegal character in string")
+                self.next_char()
+
+            tok_text = self.source[start_pos:self.cur_pos]
+            token = Token(tok_text, TokenType.WORD)
+
+        elif self.cur_char.isdigit():
+            # Leading character is a digit, so this must be a number
+            start_pos = self.cur_pos
             while self.peek().isdigit():
-                self.nextChar()
-            if self.peek() == '.':  # Decimal!
-                self.abort("Only integers allowed.")
+                self.next_char()
+            if self.peek() == '.':
+                raise TranslationException("Only integers allowed")
 
-            tokText = self.source[startPos: self.curPos + 1]
-            token = Token(tokText, TokenType.NUMBER)
-        elif self.curChar.isalpha():
-            # Leading character is a letter, so this must be an identifier or a keyword.
-            startPos = self.curPos
+            tok_text = self.source[start_pos: self.cur_pos + 1]
+            token = Token(tok_text, TokenType.NUMBER)
+
+        elif self.cur_char.isalpha():
+            # Leading character is a letter, so this must be an identifier or a keyword
+            start_pos = self.cur_pos
             while self.peek().isalnum():
-                self.nextChar()
+                self.next_char()
 
-            # Check if the token is in the list of keywords.
-            tokText = self.source[startPos: self.curPos + 1]
-            keyword = Token.checkIfKeyword(tokText)
+            # Check if the token is in the list of keywords
+            tok_text = self.source[start_pos: self.cur_pos + 1]
+            keyword = Token.checkIfKeyword(tok_text)
             if keyword is None:
-                token = Token(tokText, TokenType.IDENT)
+                token = Token(tok_text, TokenType.IDENT)
             else:
-                token = Token(tokText, keyword)
-        elif self.curChar == '\n':
-            token = Token(self.curChar, TokenType.NEWLINE)
-        elif self.curChar == '\0':
-            token = Token('', TokenType.EOF)
-        else:
-            # Unknown token!
-            self.abort("Unknown token: " + self.curChar)
+                token = Token(tok_text, keyword)
 
-        self.nextChar()
+        elif self.cur_char == '\n':
+            token = Token(self.cur_char, TokenType.NEWLINE)
+
+        elif self.cur_char == '\0':
+            token = Token('', TokenType.EOF)
+
+        else:
+            raise TranslationException("Unknown token: " + self.cur_char)
+
+        self.next_char()
         return token

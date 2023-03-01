@@ -2,7 +2,7 @@ import sys
 
 from translator.isa import write_code
 from translator.lex import Lexer
-from translator.parse import Parser
+from translator.parse import Parser, TranslationException
 
 
 def main(args):
@@ -15,9 +15,12 @@ def main(args):
     lexer = Lexer(source)
     parser = Parser(lexer)
 
-    code = parser.program()
-    print("source LoC:", len(source.split("\n")), "| code instr:", len(code))
-    write_code(target, code)
+    try:
+        code = parser.program()
+        print("source LoC:", len(source.split("\n")), "| code instr:", len(code))
+        write_code(target, code)
+    except TranslationException as exception:
+        print(exception.get_msg())
 
 
 if __name__ == '__main__':

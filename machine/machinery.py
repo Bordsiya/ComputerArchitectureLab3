@@ -216,7 +216,7 @@ class ControlUnit:
 
         elif opcode == Opcode.OUTI:
             val = self.acc
-            self.device.io = val
+            self.device.io = str(val)
             self.device.write()
             self.tick()
 
@@ -360,7 +360,7 @@ def main(args):
 
     try:
         output, ticks, instructions = simulation(input_buffer, code, 100000)
-        print("Output:", output)
+        print("Output:", ''.join(output))
         print("Instructions:", instructions)
         print("Ticks:", ticks)
     except MachineException as exception:

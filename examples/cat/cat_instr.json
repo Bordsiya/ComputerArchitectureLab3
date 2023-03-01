@@ -1,0 +1,84 @@
+[
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "IN"
+    },
+    {
+        "opcode": "ST",
+        "arg": 2,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 2,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 0,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "0",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 1,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 0,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "CMP",
+        "arg": 1,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "BLE",
+        "arg": 17,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "LD",
+        "arg": 2,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "OUTC"
+    },
+    {
+        "opcode": "IN"
+    },
+    {
+        "opcode": "ST",
+        "arg": 2,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "JUMP",
+        "arg": 5,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "HLT"
+    }
+]

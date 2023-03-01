@@ -6,7 +6,7 @@
     },
     {
         "opcode": "DATA",
-        "arg": 104,
+        "arg": 72,
         "arg_mode": "DIRECT"
     },
     {

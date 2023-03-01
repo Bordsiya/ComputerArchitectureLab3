@@ -1,0 +1,293 @@
+[
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 5,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "DATA",
+        "arg": 0,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "LD",
+        "arg": 13,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 0,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "1000",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 1,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 0,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "CMP",
+        "arg": 1,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "BGE",
+        "arg": 56,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "LD",
+        "arg": 13,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 2,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "3",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 3,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 2,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "MOD",
+        "arg": 3,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 4,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "0",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 5,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 4,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "CMP",
+        "arg": 5,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "BNE",
+        "arg": 50,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "LD",
+        "arg": 13,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 6,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "5",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 7,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 6,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "MOD",
+        "arg": 7,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 8,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "0",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 9,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 8,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "CMP",
+        "arg": 9,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "BNE",
+        "arg": 50,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "LD",
+        "arg": "1",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 10,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 12,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ADD",
+        "arg": 10,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 12,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": "1",
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "ST",
+        "arg": 11,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "LD",
+        "arg": 13,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ADD",
+        "arg": 11,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "ST",
+        "arg": 13,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "JUMP",
+        "arg": 14,
+        "arg_mode": "DIRECT"
+    },
+    {
+        "opcode": "LD",
+        "arg": 12,
+        "arg_mode": "ABSOLUTE"
+    },
+    {
+        "opcode": "OUTI"
+    },
+    {
+        "opcode": "HLT"
+    }
+]

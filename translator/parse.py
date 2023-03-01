@@ -147,18 +147,26 @@ class Parser:
 
     def statement(self):
 
-        # "PRINT" "(" "IDENT" ")"
+        # "PRINT" "(" "IDENT" "," ["STRING" | "INT"] ")"
         if self.check_token(TokenType.PRINT):
             self.next_token()
             self.match(TokenType.OPEN_PAREN_ROUND)
 
             ident = self.cur_token.text
             self.match(TokenType.IDENT)
+            self.match(TokenType.COMMA)
+            type = self.cur_token.kind
+            self.next_token()
             self.match(TokenType.CLOSE_PAREN_ROUND)
 
             if ident in self.integers:
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ident, 'arg_mode': AddressingMode.ABSOLUTE})
-                self.instructions.append({'opcode': Opcode.OUTI})
+                if type == TokenType.STRING:
+                    self.instructions.append({'opcode': Opcode.OUTC})
+                elif type == TokenType.INT:
+                    self.instructions.append({'opcode': Opcode.OUTI})
+                else:
+                    raise TranslationException("Incorrect type in print()")
 
             elif ident in self.strings:
                 self.loop_ind += 1
@@ -169,7 +177,12 @@ class Parser:
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ptr, 'arg_mode': AddressingMode.RELATIVE})
                 self.instructions.append({'opcode': Opcode.BEQ, 'arg': l_end, 'arg_mode': AddressingMode.DIRECT})
 
-                self.instructions.append({'opcode': Opcode.OUTC})
+                if type == TokenType.STRING:
+                    self.instructions.append({'opcode': Opcode.OUTC})
+                elif type == TokenType.INT:
+                    self.instructions.append({'opcode': Opcode.OUTI})
+                else:
+                    raise TranslationException("Incorrect type in print()")
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ptr, 'arg_mode': AddressingMode.ABSOLUTE})
                 self.instructions.append({'opcode': Opcode.INC})
                 self.instructions.append({'opcode': Opcode.ST, 'arg': ptr, 'arg_mode': AddressingMode.ABSOLUTE})

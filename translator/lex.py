@@ -12,6 +12,7 @@ class TokenType(enum.Enum):
     WORD = 3
     OPEN_PAREN_ROUND = 4
     CLOSE_PAREN_ROUND = 5
+    COMMA = 6
     # Keywords.
     PRINT = 100
     INPUT = 101
@@ -165,6 +166,9 @@ class Lexer:
 
         elif self.cur_char == ')':
             token = Token(self.cur_char, TokenType.CLOSE_PAREN_ROUND)
+
+        elif self.cur_char == ',':
+            token = Token(self.cur_char, TokenType.COMMA)
 
         elif self.cur_char == '\"':
             # Get characters between quotations

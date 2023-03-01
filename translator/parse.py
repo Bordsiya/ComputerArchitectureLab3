@@ -158,7 +158,7 @@ class Parser:
 
             if ident in self.integers:
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ident, 'arg_mode': AddressingMode.ABSOLUTE})
-                self.instructions.append({'opcode': Opcode.OUT})
+                self.instructions.append({'opcode': Opcode.OUTI})
 
             elif ident in self.strings:
                 self.loop_ind += 1
@@ -169,7 +169,7 @@ class Parser:
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ptr, 'arg_mode': AddressingMode.RELATIVE})
                 self.instructions.append({'opcode': Opcode.BEQ, 'arg': l_end, 'arg_mode': AddressingMode.DIRECT})
 
-                self.instructions.append({'opcode': Opcode.OUT})
+                self.instructions.append({'opcode': Opcode.OUTC})
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ptr, 'arg_mode': AddressingMode.ABSOLUTE})
                 self.instructions.append({'opcode': Opcode.INC})
                 self.instructions.append({'opcode': Opcode.ST, 'arg': ptr, 'arg_mode': AddressingMode.ABSOLUTE})

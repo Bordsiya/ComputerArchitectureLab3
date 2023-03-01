@@ -12,7 +12,7 @@
 - `instr` = каждая инструкция расписана потактово, но в журнале фиксируется только результат выполнения
 - `struct` = инструкции представляются в виде высокоуровневой структуры
 - `stream` = ввод-вывод реализован как поток данных
-- `port` = передача данных в процессор реализовано через команды (`IN`, `OUT`)
+- `port` = передача данных в процессор реализовано через команды (`IN`, `OUTC`, `OUT`)
 - `prob1` = задача Эйлера №1 - найти сумму чисел, кратных 3 и 5, которые меньше 1000
 
 ## Язык программирования ##
@@ -22,7 +22,7 @@
 - Типы: `int`/`string`
 - `if (comparison) ... endif`
 - `while (comparison) ... endwhile`
-- `print(variable)` = передает значение переменной в выходной буфер
+- `print(variable, type)` = передает значение переменной в выходной буфер, type определяет как выводить переменную - интерпретируя данные как char или нет
 - `input(variable)` = считывает значение из входного буфера в переменную
 - Ветвления: >=, <=, ==, <, >, !=
 - Математические операции: 
@@ -50,7 +50,7 @@
 <statement> ::= <print_statement> | <input_statement> | <if_statement> | <while_statement> | <int_declaration> 
   | <string_declaration> | <variable_assignment> | <comment_statement>
 
-<print_statement> ::= "print" "(" <ident> ")" <nl_block>
+<print_statement> ::= "print" "(" <ident> "," "int" ")" <nl_block> | "print" "(" <ident> "," "string" ")" <nl_block>
 <input_statement> ::= "input" "(" <ident> ")" <nl_block>
 <if_statement> ::= "if" "(" <comparison> ")" <nl_block> <block_of_statements> "endif" <nl_block>
 <while_statement> ::= "while" "(" <comparison> ")" <nl_block> <block_of_statements> "endwhile" <nl_block>
@@ -99,13 +99,13 @@ while (i < 1000)
 	endif
 	i += 1
 endwhile
-print(sum)
+print(sum, int)
 ```
 
 ```js
 // Hello world program
 string hw = "hello world!"
-print(hw)
+print(hw, string)
 ```
 
 ## Организация памяти ##
@@ -146,7 +146,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			ACC -> ACC + DR
+			ACC + DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -156,7 +156,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			ACC -> ACC - DR
+			ACC - DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -166,7 +166,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			ACC -> ACC / DR
+			ACC // DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -176,7 +176,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			ACC -> ACC * DR
+			ACC * DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -186,7 +186,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			ACC -> ACC % DR
+			ACC % DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -206,7 +206,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если DR > 0: PC -> PC + 1
+			Если DR > 0: PC + 1 -> PC
 		</td>
 	</tr>
 	<tr>
@@ -216,7 +216,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			ACC -> 0 + DR
+			0 + DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -226,7 +226,7 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			AR -> M; MEM[AR] -> ACC
+			M -> AR; ACC -> MEM[AR]
 		</td>
 	</tr>
 	<tr>
@@ -236,7 +236,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			PC -> DR
+			DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -246,7 +246,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если z == 1: PC -> DR
+			Если z == 1: DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -256,7 +256,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если z == 0: PC -> DR
+			Если z == 0: DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -266,7 +266,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если n == 0: PC -> DR
+			Если n == 0: DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -276,7 +276,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если z v n == 1: PC -> DR
+			Если z v n == 1: DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -286,7 +286,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если n == 1: PC -> DR
+			Если n == 1: DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -296,7 +296,7 @@ print(hw)
 			Operand/Execution
 		</td>
 		<td>
-			Если z v n == 0: PC -> DR
+			Если z v n == 0: DR -> PC
 		</td>
 	</tr>
 	<tr>
@@ -326,7 +326,7 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			ACC -> 0
+			0 -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -336,7 +336,7 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			ACC -> IO
+			IO -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -346,17 +346,17 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			IO -> chr(ACC)
+			chr(ACC) -> IO
 		</td>
 	</tr>
 	<tr>
-		<td>OUTI</td>
+		<td>OUT</td>
 		<td>1</td>
 		<td>
 			Execution
 		</td>
 		<td>
-			IO -> ACC
+			ACC -> IO
 		</td>
 	</tr>
 	<tr>
@@ -366,7 +366,7 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			DR -> 1; ACC -> ACC + DR
+			1 -> DR; ACC + DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -376,7 +376,7 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			DR -> -1; ACC -> ACC + DR
+			-1 -> DR; ACC + DR -> ACC
 		</td>
 	</tr>
 	<tr>
@@ -386,7 +386,7 @@ print(hw)
 			Execution
 		</td>
 		<td>
-			DR -> -1; ACC -> ACC * DR
+			-1 -> DR; ACC * DR -> ACC
 		</td>
 	</tr>
 </table>
@@ -404,17 +404,17 @@ print(hw)
 	</tr>
 	<tr>
 		<td>DIRECT</td>
-		<td>DR -> M</td>
+		<td>M -> DR</td>
 		<td>1</td>
 	</tr>
 	<tr>
 		<td>ABSOLUTE</td>
-		<td>DR -> MEM[M]</td>
+		<td>MEM[M] -> DR</td>
 		<td>2</td>
 	</tr>
 	<tr>
 		<td>RELATIVE</td>
-		<td>DR -> MEM[МEM[M]]</td>
+		<td>MEM[МEM[M]] -> DR</td>
 		<td>4</td>
 	</tr>
 </table>
@@ -471,7 +471,7 @@ print(hw)
 ```js
 // Hello world program
 string hw = "hello world!"
-print(hw)
+print(hw, string)
 ```
 
 Состояние преобразованного кода до переподсчета адресов можно для улучшения понимания рассматривать как:
@@ -513,7 +513,7 @@ HLT
     },
     {
         "opcode": "DATA",
-        "arg": 104,
+        "arg": 72,
         "arg_mode": "DIRECT"
     },
     {
@@ -672,8 +672,8 @@ TODO: тесты
 	<td>7</td>
 	<td>-</td>
 	<td>18</td>
-	<td>132</td>
-	<td>381</td>
+	<td>48</td>
+	<td>136</td>
 	<td>alg | acc | neum | hw | instr | struct | stream | port | prob1</td>
 </tr>
 <tr>

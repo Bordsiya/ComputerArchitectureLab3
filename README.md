@@ -614,7 +614,7 @@ HLT
 ```
 
 ## Модель процессора ##
-Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine1)
+Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine)
 
 Интерфейс командной строки: `machinery.py <code_file> <input_file>`
 ### Схема DataPath и ControlUnit ###

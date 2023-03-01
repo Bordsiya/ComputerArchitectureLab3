@@ -285,7 +285,7 @@
         "arg_mode": "ABSOLUTE"
     },
     {
-        "opcode": "OUTI"
+        "opcode": "OUT"
     },
     {
         "opcode": "HLT"

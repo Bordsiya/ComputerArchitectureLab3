@@ -164,7 +164,7 @@ class Parser:
                 if type == TokenType.STRING:
                     self.instructions.append({'opcode': Opcode.OUTC})
                 elif type == TokenType.INT:
-                    self.instructions.append({'opcode': Opcode.OUTI})
+                    self.instructions.append({'opcode': Opcode.OUT})
                 else:
                     raise TranslationException("Incorrect type in print()")
 
@@ -180,7 +180,7 @@ class Parser:
                 if type == TokenType.STRING:
                     self.instructions.append({'opcode': Opcode.OUTC})
                 elif type == TokenType.INT:
-                    self.instructions.append({'opcode': Opcode.OUTI})
+                    self.instructions.append({'opcode': Opcode.OUT})
                 else:
                     raise TranslationException("Incorrect type in print()")
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ptr, 'arg_mode': AddressingMode.ABSOLUTE})

@@ -28,7 +28,7 @@ class Opcode(str, enum.Enum):
     CLA = "CLA"
     IN = "IN"
     OUTC = "OUTC"
-    OUTI = "OUTI"
+    OUT = "OUT"
     INC = "INC"
     DEC = "DEC"
     NEG = "NEG"
@@ -37,7 +37,7 @@ class Opcode(str, enum.Enum):
 addressed_commands = [Opcode.ADD, Opcode.SUB, Opcode.DIV, Opcode.MUL, Opcode.MOD, Opcode.CMP, Opcode.LOOP, Opcode.LD,
                       Opcode.ST, Opcode.JUMP, Opcode.BEQ, Opcode.BNE, Opcode.BGE, Opcode.BLE, Opcode.BL, Opcode.BG]
 
-unaddressed_commands = [Opcode.NOP, Opcode.HLT, Opcode.CLA, Opcode.IN, Opcode.OUTC, Opcode.OUTI, Opcode.INC,
+unaddressed_commands = [Opcode.NOP, Opcode.HLT, Opcode.CLA, Opcode.IN, Opcode.OUTC, Opcode.OUT, Opcode.INC,
                         Opcode.DEC, Opcode.NEG]
 
 

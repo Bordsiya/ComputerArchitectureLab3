@@ -214,7 +214,7 @@ class ControlUnit:
             self.latch_program_counter(True)
             self.tick()
 
-        elif opcode == Opcode.OUTI:
+        elif opcode == Opcode.OUT:
             val = self.acc
             self.device.io = str(val)
             self.device.write()

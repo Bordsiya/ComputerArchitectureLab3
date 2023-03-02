@@ -208,7 +208,7 @@ class ControlUnit:
         elif opcode == Opcode.IN:
             self.device.read()
             val = ord(self.device.io)
-            logging.info("{{info_buffer: {} >> {}}}".format(self.device.input, val))
+            logging.info(f"{{info_buffer: {self.device.input} >> {val}}}")
             self.latch_acc(val)
             self.__tick()
 
@@ -219,7 +219,7 @@ class ControlUnit:
             val = chr(self.acc)
             self.device.io = val
             self.device.write()
-            logging.info("{{output_buffer: {} << {}}}".format(self.device.output, val))
+            logging.info(f"{{output_buffer: {self.device.output} << {val}}}")
             self.__tick()
 
             self.latch_program_counter(True)
@@ -229,7 +229,7 @@ class ControlUnit:
             val = str(self.acc)
             self.device.io = val
             self.device.write()
-            logging.info("{{output_buffer: {} << {}}}".format(self.device.output, val))
+            logging.info(f"{{output_buffer: {self.device.output} << {val}}}")
             self.__tick()
 
             self.latch_program_counter(True)
@@ -306,16 +306,8 @@ class ControlUnit:
             self.__tick()
 
     def __repr__(self):
-        state = "{{TICK: {}, PC: {}, AR: {}, DR: {}, ACC: {}, IO: {}, N: {}, Z: {}}}".format(
-            self.tact,
-            self.program_counter,
-            self.addr_reg,
-            self.data_reg,
-            self.acc,
-            self.device.io,
-            self.negative_flag,
-            self.zero_flag,
-        )
+        state = f"{{TICK: {self.tact}, PC: {self.program_counter}, AR: {self.addr_reg}, DR: {self.data_reg}" \
+                f", ACC: {self.acc}, IO: {self.device.io}, N: {self.negative_flag}, Z: {self.zero_flag}}}"
 
         instr = self.memory[self.program_counter]
         opcode = instr['opcode']
@@ -328,9 +320,7 @@ class ControlUnit:
                 arg_mode
             )
         else:
-            action = "{{{}}}".format(
-                opcode
-            )
+            action = f"{{{opcode}}}"
 
         return "{} {}".format(state, action)
 

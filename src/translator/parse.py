@@ -37,9 +37,6 @@ class Parser:
     def __check_token(self, kind: TokenType):
         return kind == self.cur_token.kind
 
-    def __check_peek(self, kind: TokenType):
-        return kind == self.peek_token.kind
-
     def __match(self, kind: TokenType):
         if not self.__check_token(kind):
             raise TranslationException("Expected " + kind.name + ", got " + self.cur_token.kind.name)
@@ -51,8 +48,8 @@ class Parser:
 
     def __is_comparison_operator(self):
         return self.__check_token(TokenType.GT) or self.__check_token(TokenType.GTEQ) or self.__check_token(
-            TokenType.LT) or self.__check_token(TokenType.LTEQ) or self.__check_token(TokenType.EQEQ) or self.__check_token(
-            TokenType.NOTEQ)
+            TokenType.LT) or self.__check_token(TokenType.LTEQ) or self.__check_token(TokenType.EQEQ)\
+               or self.__check_token(TokenType.NOTEQ)
 
     def __is_eq_operator(self):
         return self.__check_token(TokenType.EQ) or self.__check_token(TokenType.ASTERISKEQ) or self.__check_token(
@@ -163,15 +160,15 @@ class Parser:
             ident = self.cur_token.text
             self.__match(TokenType.IDENT)
             self.__match(TokenType.COMMA)
-            type = self.cur_token.kind
+            print_type = self.cur_token.kind
             self.__next_token()
             self.__match(TokenType.CLOSE_PAREN_ROUND)
 
             if ident in self.integers:
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ident, 'arg_mode': AddressingMode.ABSOLUTE})
-                if type == TokenType.STRING:
+                if print_type == TokenType.STRING:
                     self.instructions.append({'opcode': Opcode.OUTC})
-                elif type == TokenType.INT:
+                elif print_type == TokenType.INT:
                     self.instructions.append({'opcode': Opcode.OUT})
                 else:
                     raise TranslationException("Incorrect type in print()")
@@ -185,9 +182,9 @@ class Parser:
                 self.instructions.append({'opcode': Opcode.LD, 'arg': ptr, 'arg_mode': AddressingMode.RELATIVE})
                 self.instructions.append({'opcode': Opcode.BEQ, 'arg': l_end, 'arg_mode': AddressingMode.DIRECT})
 
-                if type == TokenType.STRING:
+                if print_type == TokenType.STRING:
                     self.instructions.append({'opcode': Opcode.OUTC})
-                elif type == TokenType.INT:
+                elif print_type == TokenType.INT:
                     self.instructions.append({'opcode': Opcode.OUT})
                 else:
                     raise TranslationException("Incorrect type in print()")
@@ -384,7 +381,8 @@ class Parser:
         self.unary()
 
         # Can have 0 or more */% and expressions.
-        if self.__check_token(TokenType.ASTERISK) or self.__check_token(TokenType.SLASH) or self.__check_token(TokenType.MOD):
+        if self.__check_token(TokenType.ASTERISK) or self.__check_token(TokenType.SLASH) \
+                or self.__check_token(TokenType.MOD):
             exp1 = self.__create_exp_op()
             while self.__check_token(TokenType.ASTERISK) or self.__check_token(TokenType.SLASH) or self.__check_token(
                     TokenType.MOD):

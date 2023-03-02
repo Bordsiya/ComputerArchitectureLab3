@@ -47,24 +47,26 @@
 ```ebnf
 <program> ::= <block_of_statements>
 <block_of_statements> ::= <statement> <block_of_statements> | <statement>
-<statement> ::= <print_statement> | <input_statement> | <if_statement> | <while_statement> | <int_declaration> 
-  | <string_declaration> | <variable_assignment> | <comment_statement>
+<statement> ::= <print_statement> | <input_statement> | <if_statement> | <while_statement> 
+	| <int_declaration> | <string_declaration> | <variable_assignment> | <comment_statement>
 
-<print_statement> ::= "print" "(" <ident> "," "int" ")" <nl_block> | "print" "(" <ident> "," "string" ")" <nl_block>
+<print_statement> ::= "print" "(" <ident> "," "int" ")" <nl_block> 
+	| "print" "(" <ident> "," "string" ")" <nl_block>
 <input_statement> ::= "input" "(" <ident> ")" <nl_block>
 <if_statement> ::= "if" "(" <comparison> ")" <nl_block> <block_of_statements> "endif" <nl_block>
 <while_statement> ::= "while" "(" <comparison> ")" <nl_block> <block_of_statements> "endwhile" <nl_block>
 <int_declaration> ::= "int" <ident> "=" <expression> <nl_block>
 <string_declaration> ::= "string" <ident> "=" <word> <nl_block>
 <variable_assignment> ::= <ident> "=" <expression> <nl_block> | <ident> "+=" <expression> <nl_block> 
-  | <ident> "-=" <expression> <nl_block> | <ident> "/=" <expression> <nl_block> | <ident> "*=" <expression> <nl_block> 
-  | <ident> "%=" <expression> <nl_block>
+  | <ident> "-=" <expression> <nl_block> | <ident> "/=" <expression> <nl_block>
+  | <ident> "*=" <expression> <nl_block> | <ident> "%=" <expression> <nl_block>
 <comment_statement> ::= "//" <word> <nl_block>
 
 <nl_block> ::= <nl> <nl_block> | <nl>
 <nl> ::= '\n'
-<comparison> ::= <expression> | <expression> "==" <expression> | <expression> "!=" <expression> | <expression> ">" <expression> | 
-  <expression> "<" <expression>  |<expression> ">=" <expression> | <expression> "<=" <expression>
+<comparison> ::= <expression> | <expression> "==" <expression> | <expression> "!=" <expression> 
+	| <expression> ">" <expression> | <expression> "<" <expression> 
+	| <expression> ">=" <expression> | <expression> "<=" <expression>
 <expression> ::= <term> | <term> "+" <term> | <term> "-" <term>
 <term> ::= <unary> | <unary> "/" <unary> | <unary> "*" <unary> | <unary> "%" <unary>
 <unary> ::= <primary> | "+"<primary> | "-"<primary>
@@ -76,7 +78,8 @@
 
 <letter_or_digit_list> ::= <letter_or_digit> | <letter_or_digit> <letter_or_digit_list>
 <digit_list> ::= <digit> <digit_list> | <digit>
-<letter_or_digit_or_space_list> ::= <letter_or_digit_or_space> | <letter_or_digit_or_space> <letter_or_digit_or_space_list>
+<letter_or_digit_or_space_list> ::= <letter_or_digit_or_space> 
+	| <letter_or_digit_or_space> <letter_or_digit_or_space_list>
 
 <letter_or_digit> ::= <letter> | <digit>
 <letter_or_digit_or_space> ::= <letter> | <digit> | <space>
@@ -614,7 +617,7 @@ HLT
 ```
 
 ## Модель процессора ##
-Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine1)
+Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine)
 
 Интерфейс командной строки: `machinery.py <code_file> <input_file>`
 ### Схема DataPath и ControlUnit ###

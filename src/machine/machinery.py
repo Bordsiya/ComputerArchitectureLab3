@@ -2,7 +2,7 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
 # pylint: disable=too-many-instance-attributes
-# pylint: disable=logging-format-interpolation
+# pylint: disable=logging-fstring-interpolation
 # pylint: disable=logging-not-lazy
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
@@ -314,15 +314,11 @@ class ControlUnit:
         if 'arg' in instr:
             arg = instr['arg']
             arg_mode = instr['arg_mode']
-            action = "{{{}, {}, {}}}".format(
-                opcode,
-                arg,
-                arg_mode
-            )
+            action = f"{{{opcode}, {arg}, {arg_mode}}}"
         else:
             action = f"{{{opcode}}}"
 
-        return "{} {}".format(state, action)
+        return f"{state} {action}"
 
 
 def simulation(input_buffer: list, instructions: list, limit: int):

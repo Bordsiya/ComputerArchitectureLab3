@@ -13,8 +13,6 @@ from src.translator import translate
 @pytest.mark.golden_test("golden/*.yml")
 def test_whole_by_golden(golden, caplog):
     caplog.set_level(logging.DEBUG)
-    log_format = '%(levelname)s %(module)s: %(message)s'
-    caplog.basicConfig(format=log_format)
 
     with tempfile.TemporaryDirectory() as tmpdirname:
         source = os.path.join(tmpdirname, "source.js")

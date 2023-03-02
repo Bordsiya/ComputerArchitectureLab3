@@ -207,7 +207,7 @@ class ControlUnit:
 
         elif opcode == Opcode.IN:
             self.device.read()
-            val = ord(self.device.io)
+            val = self.device.io
             logging.info(f"{{info_buffer: {self.device.input} >> {val}}}")
             self.latch_acc(val)
             self.__tick()

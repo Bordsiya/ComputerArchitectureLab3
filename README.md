@@ -456,7 +456,7 @@ print(hw, string)
 - `arg_mode` = режим адресации
 
 ## Транслятор ##
-Реализован в [translator](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/translator)
+Реализован в [translator](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/src/translator)
 
 Интерфейс командной строки: `translate.py <input_file> <target_file>`
 
@@ -617,7 +617,7 @@ HLT
 ```
 
 ## Модель процессора ##
-Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/machine)
+Реализован в [machine](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/src/machine)
 
 Интерфейс командной строки: `machinery.py <code_file> <input_file>`
 ### Схема DataPath и ControlUnit ###
@@ -647,7 +647,125 @@ ControlUnit:
 	- `EOFException` = при ошибке `Buffer is empty`
 
 ## Апробация ##
-TODO: тесты
+В качестве тестов использовано 3 алгоритма:
+- [cat](https://github.com/Bordsiya/ComputerArchitectureLab3/blob/master/src/examples/cat/cat.js) - повторяет ввод на выводе
+- [hello_world](https://github.com/Bordsiya/ComputerArchitectureLab3/blob/master/src/examples/hello_world/hello_world.js) - выводит "Hello world!"
+- [prob1](https://github.com/Bordsiya/ComputerArchitectureLab3/blob/master/src/examples/prob1/prob1.js) - задача Эйлера №1 - находит сумму чисел, кратных 3 и 5, которые меньше 1000
+
+Интеграционные тесты реализованы в [integration_test](https://github.com/Bordsiya/ComputerArchitectureLab3/blob/master/src/integration_test.py) в виде `golden tests`, конфигурация которых лежит в [golden](https://github.com/Bordsiya/ComputerArchitectureLab3/tree/master/src/golden)
+
+CI (for github):
+
+```yml
+name: Pylint
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+        pip install pytest-golden
+    - name: Analysing the code with pylint
+      run: |
+        pylint --max-line-length=120 ./src/translator/* ./src/machine/device.py ./src/machine/machinery.py
+    - name: Run tests
+      run:
+        pytest
+```
+
+- `pytest` - утилита для запуска тестов
+- `pylint` - утилита для проверки качества кода; некоторые правила отключены в отдельных модулях с целью упрощения кода
+
+Пример использования и журнал работы процессора на примере `cat`:
+```console
+> cd src
+> cat examples/cat/cat.js
+// Cat program
+int n = 0
+input(n)
+while (n > 0)
+	print(n, string)
+	input(n)
+endwhile
+> cat examples/cat/cat_input.txt
+Foo
+./translator/translate.py examples/cat/cat.js examples/cat/cat_instr.json
+source LoC: 7 | code instr: 18
+> ./machine/machinery.py examples/cat/cat_instr.json examples/cat/cat_input.txt
+  DEBUG    root:machinery.py:338 {TICK: 0, PC: 0, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 1, PC: 1, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 2, PC: 2, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 3, PC: 3, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {IN}
+  INFO     root:machinery.py:211 {info_buffer: ['F', 'o', 'o', '\x00'] >> 70}
+  DEBUG    root:machinery.py:338 {TICK: 5, PC: 4, AR: 0, DR: 0, ACC: 70, IO: 70, N: False, Z: False} {ST, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 8, PC: 5, AR: 2, DR: 0, ACC: 70, IO: 70, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 12, PC: 6, AR: 2, DR: 70, ACC: 70, IO: 70, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 15, PC: 7, AR: 0, DR: 70, ACC: 70, IO: 70, N: False, Z: False} {LD, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 18, PC: 8, AR: 0, DR: 0, ACC: 0, IO: 70, N: False, Z: True} {ST, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 21, PC: 9, AR: 1, DR: 0, ACC: 0, IO: 70, N: False, Z: True} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 25, PC: 10, AR: 0, DR: 70, ACC: 70, IO: 70, N: False, Z: False} {CMP, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 29, PC: 11, AR: 1, DR: 0, ACC: 70, IO: 70, N: False, Z: False} {BLE, 17, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 30, PC: 12, AR: 1, DR: 0, ACC: 70, IO: 70, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 34, PC: 13, AR: 2, DR: 70, ACC: 70, IO: 70, N: False, Z: False} {OUTC}
+  INFO     root:machinery.py:222 {output_buffer: ['F'] << F}
+  DEBUG    root:machinery.py:338 {TICK: 36, PC: 14, AR: 2, DR: 70, ACC: 70, IO: F, N: False, Z: False} {IN}
+  INFO     root:machinery.py:211 {info_buffer: ['F', 'o', 'o', '\x00'] >> 111}
+  DEBUG    root:machinery.py:338 {TICK: 38, PC: 15, AR: 2, DR: 70, ACC: 111, IO: 111, N: False, Z: False} {ST, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 41, PC: 16, AR: 2, DR: 70, ACC: 111, IO: 111, N: False, Z: False} {JUMP, 5, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 43, PC: 5, AR: 2, DR: 5, ACC: 111, IO: 111, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 47, PC: 6, AR: 2, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 50, PC: 7, AR: 0, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {LD, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 53, PC: 8, AR: 0, DR: 0, ACC: 0, IO: 111, N: False, Z: True} {ST, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 56, PC: 9, AR: 1, DR: 0, ACC: 0, IO: 111, N: False, Z: True} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 60, PC: 10, AR: 0, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {CMP, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 64, PC: 11, AR: 1, DR: 0, ACC: 111, IO: 111, N: False, Z: False} {BLE, 17, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 65, PC: 12, AR: 1, DR: 0, ACC: 111, IO: 111, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 69, PC: 13, AR: 2, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {OUTC}
+  INFO     root:machinery.py:222 {output_buffer: ['F', 'o'] << o}
+  DEBUG    root:machinery.py:338 {TICK: 71, PC: 14, AR: 2, DR: 111, ACC: 111, IO: o, N: False, Z: False} {IN}
+  INFO     root:machinery.py:211 {info_buffer: ['F', 'o', 'o', '\x00'] >> 111}
+  DEBUG    root:machinery.py:338 {TICK: 73, PC: 15, AR: 2, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {ST, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 76, PC: 16, AR: 2, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {JUMP, 5, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 78, PC: 5, AR: 2, DR: 5, ACC: 111, IO: 111, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 82, PC: 6, AR: 2, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 85, PC: 7, AR: 0, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {LD, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 88, PC: 8, AR: 0, DR: 0, ACC: 0, IO: 111, N: False, Z: True} {ST, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 91, PC: 9, AR: 1, DR: 0, ACC: 0, IO: 111, N: False, Z: True} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 95, PC: 10, AR: 0, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {CMP, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 99, PC: 11, AR: 1, DR: 0, ACC: 111, IO: 111, N: False, Z: False} {BLE, 17, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 100, PC: 12, AR: 1, DR: 0, ACC: 111, IO: 111, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 104, PC: 13, AR: 2, DR: 111, ACC: 111, IO: 111, N: False, Z: False} {OUTC}
+  INFO     root:machinery.py:222 {output_buffer: ['F', 'o', 'o'] << o}
+  DEBUG    root:machinery.py:338 {TICK: 106, PC: 14, AR: 2, DR: 111, ACC: 111, IO: o, N: False, Z: False} {IN}
+  INFO     root:machinery.py:211 {info_buffer: ['F', 'o', 'o', '\x00'] >> 0}
+  DEBUG    root:machinery.py:338 {TICK: 108, PC: 15, AR: 2, DR: 111, ACC: 0, IO: 0, N: False, Z: False} {ST, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 111, PC: 16, AR: 2, DR: 111, ACC: 0, IO: 0, N: False, Z: False} {JUMP, 5, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 113, PC: 5, AR: 2, DR: 5, ACC: 0, IO: 0, N: False, Z: False} {LD, 2, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 117, PC: 6, AR: 2, DR: 0, ACC: 0, IO: 0, N: False, Z: True} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 120, PC: 7, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: True} {LD, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 123, PC: 8, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: True} {ST, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 126, PC: 9, AR: 1, DR: 0, ACC: 0, IO: 0, N: False, Z: True} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 130, PC: 10, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: True} {CMP, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 134, PC: 11, AR: 1, DR: 0, ACC: 0, IO: 0, N: False, Z: True} {BLE, 17, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 136, PC: 17, AR: 1, DR: 17, ACC: 0, IO: 0, N: False, Z: True} {HLT}
+  Output: Foo
+  Instructions: 48
+  Ticks: 136
+```
+
 <table>
 <tr>
 	<td>ФИО</td> 

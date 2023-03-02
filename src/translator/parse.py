@@ -4,8 +4,8 @@
 
 import re
 
-from isa import AddressingMode, Opcode, addressed_commands
-from translator.lex import *
+from src.isa import AddressingMode, Opcode, addressed_commands
+from src.translator.lex import *
 
 
 # Parser object keeps track of current token and checks if the code matches the grammar

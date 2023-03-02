@@ -21,7 +21,7 @@ jobs:
         pip install pytest-golden
     - name: Analysing the code with pylint
       run: |
-        pylint --max-line-length=120 ./translator/* ./machine/device.py ./machine/machinery.py
+        pylint --max-line-length=120 ./src/translator/* ./src/machine/device.py ./src/machine/machinery.py
     - name: Run tests
       run:
         pytest

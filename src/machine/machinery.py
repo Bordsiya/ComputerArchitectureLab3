@@ -6,10 +6,10 @@ import enum
 import logging
 import sys
 
-from exceptions import MachineException
-from machine.device import Device
-from machine.config import MEMORY_SIZE, WORD_INIT, START_ADDR, MAX_WORD, MIN_WORD
-from isa import read_code, Opcode, AddressingMode
+from src.exceptions import MachineException
+from src.machine import Device
+from src.machine.config import MEMORY_SIZE, WORD_INIT, START_ADDR, MAX_WORD, MIN_WORD
+from src.isa import read_code, Opcode, AddressingMode
 
 
 class AluOperation(str, enum.Enum):

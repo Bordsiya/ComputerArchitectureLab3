@@ -6,8 +6,8 @@ import tempfile
 
 import pytest
 
-from machine import machinery
-from translator import translate
+from src.machine import machinery
+from src.translator import translate
 
 
 @pytest.mark.golden_test("golden/*.yml")

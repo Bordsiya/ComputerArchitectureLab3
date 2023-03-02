@@ -4,9 +4,9 @@
 
 import sys
 
-from isa import write_code
-from translator.lex import Lexer
-from translator.parse import Parser, TranslationException
+from src.isa import write_code
+from src.translator.lex import Lexer
+from src.translator.parse import Parser, TranslationException
 
 
 def main(args):

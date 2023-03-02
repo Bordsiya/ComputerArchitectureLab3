@@ -4,7 +4,7 @@
 
 import enum
 
-from exceptions import TranslationException
+from src.exceptions import TranslationException
 
 
 # TokenType is our enum for all the types of tokens

@@ -29680,5 +29680,5 @@ log: |
   DEBUG    root:machinery.py:338 {TICK: 95133, PC: 20, AR: 1, DR: 1000, ACC: 1000, IO: 0, N: False, Z: True} {BGE, 56, DIRECT}
   DEBUG    root:machinery.py:338 {TICK: 95135, PC: 56, AR: 1, DR: 56, ACC: 1000, IO: 0, N: False, Z: True} {LD, 12, ABSOLUTE}
   DEBUG    root:machinery.py:338 {TICK: 95139, PC: 57, AR: 12, DR: 72, ACC: 72, IO: 0, N: False, Z: False} {OUT}
-  DEBUG    root:machinery.py:232 {output_buffer: ['72'] << 72}
+  INFO    root:machinery.py:232 {output_buffer: ['72'] << 72}
   DEBUG    root:machinery.py:338 {TICK: 95141, PC: 58, AR: 12, DR: 72, ACC: 72, IO: 72, N: False, Z: False} {HLT}

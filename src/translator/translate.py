@@ -13,8 +13,8 @@ def main(args):
     assert len(args) == 2, "Wrong arguments: translate.py <input_file> <target_file>"
     source, target = args
 
-    with open(source, "rt", encoding="utf-8") as f:
-        source = f.read()
+    with open(source, "rt", encoding="utf-8") as file:
+        source = file.read()
 
     lexer = Lexer(source)
     parser = Parser(lexer)

@@ -1,15 +1,20 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=logging-format-interpolation
+# pylint: disable=logging-not-lazy
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
 
 import enum
 import logging
 import sys
 
 from src.exceptions import MachineException
-from src.machine import Device
 from src.machine.config import MEMORY_SIZE, WORD_INIT, START_ADDR, MAX_WORD, MIN_WORD
 from src.isa import read_code, Opcode, AddressingMode
+from src.machine.device import Device
 
 
 class AluOperation(str, enum.Enum):
@@ -34,19 +39,19 @@ class ControlUnit:
 
     def __init__(self, program: list, device: Device):
         self.memory = program
-        for addr in range(len(self.memory), MEMORY_SIZE):
+        for _ in range(len(self.memory), MEMORY_SIZE):
             self.memory.append({'opcode': Opcode.DATA, 'arg': WORD_INIT, 'arg_mode': AddressingMode.DIRECT})
 
         self.program_counter = START_ADDR
         self.acc = 0
-        self.ar = 0
-        self.dr = 0
+        self.addr_reg = 0
+        self.data_reg = 0
         self.tact = 0
         self.device = device
         self.zero_flag = False
         self.negative_flag = False
 
-    def tick(self):
+    def __tick(self):
         self.tact += 1
 
     def set_zero_flag(self, val: int):
@@ -55,11 +60,11 @@ class ControlUnit:
     def set_negative_flag(self, val: int):
         self.negative_flag = val < 0
 
-    def latch_ar(self, val: int):
-        self.ar = int(val)
+    def latch_addr_reg(self, val: int):
+        self.addr_reg = int(val)
 
-    def latch_dr(self, val: int):
-        self.dr = int(val)
+    def latch_data_reg(self, val: int):
+        self.data_reg = int(val)
 
     def latch_acc(self, val: int):
         self.acc = int(val)
@@ -68,7 +73,7 @@ class ControlUnit:
         if sel_next:
             self.program_counter += 1
         else:
-            self.program_counter = self.dr
+            self.program_counter = self.data_reg
 
     @staticmethod
     def check_value(val: int):
@@ -78,7 +83,7 @@ class ControlUnit:
 
     def alu_calculate(self, operation: AluOperation, sel_left: bool = True, sel_right: bool = True):
         left_operand = self.acc if sel_left else 0
-        right_operand = self.dr if sel_right else 0
+        right_operand = self.data_reg if sel_right else 0
         res = None
         if operation == AluOperation.ADD:
             res = left_operand + right_operand
@@ -105,22 +110,22 @@ class ControlUnit:
 
     def operand_fetch(self, arg: int, arg_mode: AddressingMode):
         if arg_mode == AddressingMode.DIRECT:
-            self.latch_dr(arg)
-            self.tick()
+            self.latch_data_reg(arg)
+            self.__tick()
         elif arg_mode == AddressingMode.ABSOLUTE:
-            self.latch_ar(arg)
-            self.tick()
-            self.latch_dr(self.memory[self.ar]['arg'])
-            self.tick()
+            self.latch_addr_reg(arg)
+            self.__tick()
+            self.latch_data_reg(self.memory[self.addr_reg]['arg'])
+            self.__tick()
         elif arg_mode == AddressingMode.RELATIVE:
-            self.latch_ar(arg)
-            self.tick()
-            self.latch_dr(self.memory[self.ar]['arg'])
-            self.tick()
-            self.latch_ar(self.dr)
-            self.tick()
-            self.latch_dr(self.memory[self.ar]['arg'])
-            self.tick()
+            self.latch_addr_reg(arg)
+            self.__tick()
+            self.latch_data_reg(self.memory[self.addr_reg]['arg'])
+            self.__tick()
+            self.latch_addr_reg(self.data_reg)
+            self.__tick()
+            self.latch_data_reg(self.memory[self.addr_reg]['arg'])
+            self.__tick()
 
     def decode_and_execute_instruction(self):
         instr = self.memory[self.program_counter]
@@ -131,118 +136,118 @@ class ControlUnit:
         if opcode is Opcode.HLT:
             raise StopIteration()
 
-        elif opcode is Opcode.NOP:
+        if opcode is Opcode.NOP:
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode is Opcode.LD:
             self.operand_fetch(arg, arg_mode)
             res = self.alu_calculate(AluOperation.ADD, False)
             self.latch_acc(res)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode is Opcode.ST:
-            self.latch_ar(arg)
-            self.tick()
-            self.memory[self.ar] = {'opcode': Opcode.DATA, 'arg': self.acc, 'arg_mode': AddressingMode.DIRECT}
-            self.tick()
+            self.latch_addr_reg(arg)
+            self.__tick()
+            self.memory[self.addr_reg] = {'opcode': Opcode.DATA, 'arg': self.acc, 'arg_mode': AddressingMode.DIRECT}
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode in [Opcode.ADD, Opcode.SUB, Opcode.MUL, Opcode.DIV, Opcode.MOD, Opcode.CMP]:
             self.operand_fetch(arg, arg_mode)
             res = self.alu_calculate(opcode_to_alu_operation[opcode])
             if opcode not in Opcode.CMP:
                 self.latch_acc(res)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.INC:
-            self.latch_dr(1)
-            self.tick()
+            self.latch_data_reg(1)
+            self.__tick()
             res = self.alu_calculate(AluOperation.ADD)
             self.latch_acc(res)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.DEC:
-            self.latch_dr(-1)
-            self.tick()
+            self.latch_data_reg(-1)
+            self.__tick()
             res = self.alu_calculate(AluOperation.ADD)
             self.latch_acc(res)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.CLA:
             self.latch_acc(0)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.NEG:
-            self.latch_dr(-1)
-            self.tick()
+            self.latch_data_reg(-1)
+            self.__tick()
             res = self.alu_calculate(AluOperation.MUL)
             self.latch_acc(res)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.IN:
             self.device.read()
             val = ord(self.device.io)
             logging.info("{{info_buffer: {} >> {}}}".format(self.device.input, val))
             self.latch_acc(val)
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.OUTC:
             val = chr(self.acc)
             self.device.io = val
             self.device.write()
             logging.info("{{output_buffer: {} << {}}}".format(self.device.output, val))
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.OUT:
             val = str(self.acc)
             self.device.io = val
             self.device.write()
             logging.info("{{output_buffer: {} << {}}}".format(self.device.output, val))
-            self.tick()
+            self.__tick()
 
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.JUMP:
             self.operand_fetch(arg, arg_mode)
 
             self.latch_program_counter(False)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.LOOP:
             self.operand_fetch(arg, arg_mode)
-            if self.dr > 0:
+            if self.data_reg > 0:
                 self.latch_program_counter(True)
-                self.tick()
+                self.__tick()
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.BEQ:
             if self.zero_flag:
@@ -250,7 +255,7 @@ class ControlUnit:
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.BNE:
             if not self.zero_flag:
@@ -258,7 +263,7 @@ class ControlUnit:
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.BGE:
             # ~(n ^ v)
@@ -267,7 +272,7 @@ class ControlUnit:
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.BLE:
             # z | (n ^ v)
@@ -276,7 +281,7 @@ class ControlUnit:
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.BL:
             # n ^ v
@@ -285,27 +290,27 @@ class ControlUnit:
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.BG:
             # ~(z | (n ^ v))
-            if not (self.zero_flag | self.negative_flag):
+            if not self.zero_flag | self.negative_flag:
                 self.operand_fetch(arg, arg_mode)
                 self.latch_program_counter(False)
             else:
                 self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
         elif opcode == Opcode.DATA:
             self.latch_program_counter(True)
-            self.tick()
+            self.__tick()
 
     def __repr__(self):
         state = "{{TICK: {}, PC: {}, AR: {}, DR: {}, ACC: {}, IO: {}, N: {}, Z: {}}}".format(
             self.tact,
             self.program_counter,
-            self.ar,
-            self.dr,
+            self.addr_reg,
+            self.data_reg,
             self.acc,
             self.device.io,
             self.negative_flag,

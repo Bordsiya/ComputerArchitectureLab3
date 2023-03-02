@@ -366,5 +366,7 @@ def main(args):
 
 
 if __name__ == '__main__':
+    FORMAT = '%(levelname)s    root:%(module)s:%(funcName)s:%(lineno)d %(message)s'
+    logging.basicConfig(format=FORMAT)
     logging.getLogger().setLevel(logging.DEBUG)
     main(sys.argv[1:])

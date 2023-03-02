@@ -118,116 +118,116 @@ output: |
   Instructions: 100
   Ticks: 274
 log: |
-  {TICK: 0, PC: 0, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 1, ABSOLUTE}
-  {TICK: 1, PC: 1, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 72, DIRECT}
-  {TICK: 2, PC: 2, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 101, DIRECT}
-  {TICK: 3, PC: 3, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 108, DIRECT}
-  {TICK: 4, PC: 4, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 108, DIRECT}
-  {TICK: 5, PC: 5, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 111, DIRECT}
-  {TICK: 6, PC: 6, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 32, DIRECT}
-  {TICK: 7, PC: 7, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 119, DIRECT}
-  {TICK: 8, PC: 8, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 111, DIRECT}
-  {TICK: 9, PC: 9, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 114, DIRECT}
-  {TICK: 10, PC: 10, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 108, DIRECT}
-  {TICK: 11, PC: 11, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 100, DIRECT}
-  {TICK: 12, PC: 12, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 33, DIRECT}
-  {TICK: 13, PC: 13, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 0, DIRECT}
-  {TICK: 14, PC: 14, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 20, PC: 15, AR: 1, DR: 72, ACC: 72, IO: 0, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 21, PC: 16, AR: 1, DR: 72, ACC: 72, IO: 0, N: False, Z: False} {OUTC}
-  {output_buffer: ['H'] << H}
-  {TICK: 23, PC: 17, AR: 1, DR: 72, ACC: 72, IO: H, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 27, PC: 18, AR: 0, DR: 1, ACC: 1, IO: H, N: False, Z: False} {INC}
-  {TICK: 30, PC: 19, AR: 0, DR: 1, ACC: 2, IO: H, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 33, PC: 20, AR: 0, DR: 1, ACC: 2, IO: H, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 35, PC: 14, AR: 0, DR: 14, ACC: 2, IO: H, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 41, PC: 15, AR: 2, DR: 101, ACC: 101, IO: H, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 42, PC: 16, AR: 2, DR: 101, ACC: 101, IO: H, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e'] << e}
-  {TICK: 44, PC: 17, AR: 2, DR: 101, ACC: 101, IO: e, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 48, PC: 18, AR: 0, DR: 2, ACC: 2, IO: e, N: False, Z: False} {INC}
-  {TICK: 51, PC: 19, AR: 0, DR: 1, ACC: 3, IO: e, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 54, PC: 20, AR: 0, DR: 1, ACC: 3, IO: e, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 56, PC: 14, AR: 0, DR: 14, ACC: 3, IO: e, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 62, PC: 15, AR: 3, DR: 108, ACC: 108, IO: e, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 63, PC: 16, AR: 3, DR: 108, ACC: 108, IO: e, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l'] << l}
-  {TICK: 65, PC: 17, AR: 3, DR: 108, ACC: 108, IO: l, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 69, PC: 18, AR: 0, DR: 3, ACC: 3, IO: l, N: False, Z: False} {INC}
-  {TICK: 72, PC: 19, AR: 0, DR: 1, ACC: 4, IO: l, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 75, PC: 20, AR: 0, DR: 1, ACC: 4, IO: l, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 77, PC: 14, AR: 0, DR: 14, ACC: 4, IO: l, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 83, PC: 15, AR: 4, DR: 108, ACC: 108, IO: l, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 84, PC: 16, AR: 4, DR: 108, ACC: 108, IO: l, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l'] << l}
-  {TICK: 86, PC: 17, AR: 4, DR: 108, ACC: 108, IO: l, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 90, PC: 18, AR: 0, DR: 4, ACC: 4, IO: l, N: False, Z: False} {INC}
-  {TICK: 93, PC: 19, AR: 0, DR: 1, ACC: 5, IO: l, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 96, PC: 20, AR: 0, DR: 1, ACC: 5, IO: l, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 98, PC: 14, AR: 0, DR: 14, ACC: 5, IO: l, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 104, PC: 15, AR: 5, DR: 111, ACC: 111, IO: l, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 105, PC: 16, AR: 5, DR: 111, ACC: 111, IO: l, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o'] << o}
-  {TICK: 107, PC: 17, AR: 5, DR: 111, ACC: 111, IO: o, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 111, PC: 18, AR: 0, DR: 5, ACC: 5, IO: o, N: False, Z: False} {INC}
-  {TICK: 114, PC: 19, AR: 0, DR: 1, ACC: 6, IO: o, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 117, PC: 20, AR: 0, DR: 1, ACC: 6, IO: o, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 119, PC: 14, AR: 0, DR: 14, ACC: 6, IO: o, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 125, PC: 15, AR: 6, DR: 32, ACC: 32, IO: o, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 126, PC: 16, AR: 6, DR: 32, ACC: 32, IO: o, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' '] <<  }
-  {TICK: 128, PC: 17, AR: 6, DR: 32, ACC: 32, IO:  , N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 132, PC: 18, AR: 0, DR: 6, ACC: 6, IO:  , N: False, Z: False} {INC}
-  {TICK: 135, PC: 19, AR: 0, DR: 1, ACC: 7, IO:  , N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 138, PC: 20, AR: 0, DR: 1, ACC: 7, IO:  , N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 140, PC: 14, AR: 0, DR: 14, ACC: 7, IO:  , N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 146, PC: 15, AR: 7, DR: 119, ACC: 119, IO:  , N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 147, PC: 16, AR: 7, DR: 119, ACC: 119, IO:  , N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w'] << w}
-  {TICK: 149, PC: 17, AR: 7, DR: 119, ACC: 119, IO: w, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 153, PC: 18, AR: 0, DR: 7, ACC: 7, IO: w, N: False, Z: False} {INC}
-  {TICK: 156, PC: 19, AR: 0, DR: 1, ACC: 8, IO: w, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 159, PC: 20, AR: 0, DR: 1, ACC: 8, IO: w, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 161, PC: 14, AR: 0, DR: 14, ACC: 8, IO: w, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 167, PC: 15, AR: 8, DR: 111, ACC: 111, IO: w, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 168, PC: 16, AR: 8, DR: 111, ACC: 111, IO: w, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o'] << o}
-  {TICK: 170, PC: 17, AR: 8, DR: 111, ACC: 111, IO: o, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 174, PC: 18, AR: 0, DR: 8, ACC: 8, IO: o, N: False, Z: False} {INC}
-  {TICK: 177, PC: 19, AR: 0, DR: 1, ACC: 9, IO: o, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 180, PC: 20, AR: 0, DR: 1, ACC: 9, IO: o, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 182, PC: 14, AR: 0, DR: 14, ACC: 9, IO: o, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 188, PC: 15, AR: 9, DR: 114, ACC: 114, IO: o, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 189, PC: 16, AR: 9, DR: 114, ACC: 114, IO: o, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r'] << r}
-  {TICK: 191, PC: 17, AR: 9, DR: 114, ACC: 114, IO: r, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 195, PC: 18, AR: 0, DR: 9, ACC: 9, IO: r, N: False, Z: False} {INC}
-  {TICK: 198, PC: 19, AR: 0, DR: 1, ACC: 10, IO: r, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 201, PC: 20, AR: 0, DR: 1, ACC: 10, IO: r, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 203, PC: 14, AR: 0, DR: 14, ACC: 10, IO: r, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 209, PC: 15, AR: 10, DR: 108, ACC: 108, IO: r, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 210, PC: 16, AR: 10, DR: 108, ACC: 108, IO: r, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l'] << l}
-  {TICK: 212, PC: 17, AR: 10, DR: 108, ACC: 108, IO: l, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 216, PC: 18, AR: 0, DR: 10, ACC: 10, IO: l, N: False, Z: False} {INC}
-  {TICK: 219, PC: 19, AR: 0, DR: 1, ACC: 11, IO: l, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 222, PC: 20, AR: 0, DR: 1, ACC: 11, IO: l, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 224, PC: 14, AR: 0, DR: 14, ACC: 11, IO: l, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 230, PC: 15, AR: 11, DR: 100, ACC: 100, IO: l, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 231, PC: 16, AR: 11, DR: 100, ACC: 100, IO: l, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'] << d}
-  {TICK: 233, PC: 17, AR: 11, DR: 100, ACC: 100, IO: d, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 237, PC: 18, AR: 0, DR: 11, ACC: 11, IO: d, N: False, Z: False} {INC}
-  {TICK: 240, PC: 19, AR: 0, DR: 1, ACC: 12, IO: d, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 243, PC: 20, AR: 0, DR: 1, ACC: 12, IO: d, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 245, PC: 14, AR: 0, DR: 14, ACC: 12, IO: d, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 251, PC: 15, AR: 12, DR: 33, ACC: 33, IO: d, N: False, Z: False} {BEQ, 21, DIRECT}
-  {TICK: 252, PC: 16, AR: 12, DR: 33, ACC: 33, IO: d, N: False, Z: False} {OUTC}
-  {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '!'] << !}
-  {TICK: 254, PC: 17, AR: 12, DR: 33, ACC: 33, IO: !, N: False, Z: False} {LD, 0, ABSOLUTE}
-  {TICK: 258, PC: 18, AR: 0, DR: 12, ACC: 12, IO: !, N: False, Z: False} {INC}
-  {TICK: 261, PC: 19, AR: 0, DR: 1, ACC: 13, IO: !, N: False, Z: False} {ST, 0, ABSOLUTE}
-  {TICK: 264, PC: 20, AR: 0, DR: 1, ACC: 13, IO: !, N: False, Z: False} {JUMP, 14, DIRECT}
-  {TICK: 266, PC: 14, AR: 0, DR: 14, ACC: 13, IO: !, N: False, Z: False} {LD, 0, RELATIVE}
-  {TICK: 272, PC: 15, AR: 13, DR: 0, ACC: 0, IO: !, N: False, Z: True} {BEQ, 21, DIRECT}
-  {TICK: 274, PC: 21, AR: 13, DR: 21, ACC: 0, IO: !, N: False, Z: True} {HLT}
+  DEBUG    root:machinery.py:338 {TICK: 0, PC: 0, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 1, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 1, PC: 1, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 72, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 2, PC: 2, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 101, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 3, PC: 3, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 108, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 4, PC: 4, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 108, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 5, PC: 5, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 111, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 6, PC: 6, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 32, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 7, PC: 7, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 119, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 8, PC: 8, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 111, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 9, PC: 9, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 114, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 10, PC: 10, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 108, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 11, PC: 11, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 100, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 12, PC: 12, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 33, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 13, PC: 13, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {DATA, 0, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 14, PC: 14, AR: 0, DR: 0, ACC: 0, IO: 0, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 20, PC: 15, AR: 1, DR: 72, ACC: 72, IO: 0, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 21, PC: 16, AR: 1, DR: 72, ACC: 72, IO: 0, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H'] << H}
+  DEBUG    root:machinery.py:338 {TICK: 23, PC: 17, AR: 1, DR: 72, ACC: 72, IO: H, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 27, PC: 18, AR: 0, DR: 1, ACC: 1, IO: H, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 30, PC: 19, AR: 0, DR: 1, ACC: 2, IO: H, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 33, PC: 20, AR: 0, DR: 1, ACC: 2, IO: H, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 35, PC: 14, AR: 0, DR: 14, ACC: 2, IO: H, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 41, PC: 15, AR: 2, DR: 101, ACC: 101, IO: H, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 42, PC: 16, AR: 2, DR: 101, ACC: 101, IO: H, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e'] << e}
+  DEBUG    root:machinery.py:338 {TICK: 44, PC: 17, AR: 2, DR: 101, ACC: 101, IO: e, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 48, PC: 18, AR: 0, DR: 2, ACC: 2, IO: e, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 51, PC: 19, AR: 0, DR: 1, ACC: 3, IO: e, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 54, PC: 20, AR: 0, DR: 1, ACC: 3, IO: e, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 56, PC: 14, AR: 0, DR: 14, ACC: 3, IO: e, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 62, PC: 15, AR: 3, DR: 108, ACC: 108, IO: e, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 63, PC: 16, AR: 3, DR: 108, ACC: 108, IO: e, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l'] << l}
+  DEBUG    root:machinery.py:338 {TICK: 65, PC: 17, AR: 3, DR: 108, ACC: 108, IO: l, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 69, PC: 18, AR: 0, DR: 3, ACC: 3, IO: l, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 72, PC: 19, AR: 0, DR: 1, ACC: 4, IO: l, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 75, PC: 20, AR: 0, DR: 1, ACC: 4, IO: l, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 77, PC: 14, AR: 0, DR: 14, ACC: 4, IO: l, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 83, PC: 15, AR: 4, DR: 108, ACC: 108, IO: l, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 84, PC: 16, AR: 4, DR: 108, ACC: 108, IO: l, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l'] << l}
+  DEBUG    root:machinery.py:338 {TICK: 86, PC: 17, AR: 4, DR: 108, ACC: 108, IO: l, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 90, PC: 18, AR: 0, DR: 4, ACC: 4, IO: l, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 93, PC: 19, AR: 0, DR: 1, ACC: 5, IO: l, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 96, PC: 20, AR: 0, DR: 1, ACC: 5, IO: l, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 98, PC: 14, AR: 0, DR: 14, ACC: 5, IO: l, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 104, PC: 15, AR: 5, DR: 111, ACC: 111, IO: l, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 105, PC: 16, AR: 5, DR: 111, ACC: 111, IO: l, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o'] << o}
+  DEBUG    root:machinery.py:338 {TICK: 107, PC: 17, AR: 5, DR: 111, ACC: 111, IO: o, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 111, PC: 18, AR: 0, DR: 5, ACC: 5, IO: o, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 114, PC: 19, AR: 0, DR: 1, ACC: 6, IO: o, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 117, PC: 20, AR: 0, DR: 1, ACC: 6, IO: o, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 119, PC: 14, AR: 0, DR: 14, ACC: 6, IO: o, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 125, PC: 15, AR: 6, DR: 32, ACC: 32, IO: o, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 126, PC: 16, AR: 6, DR: 32, ACC: 32, IO: o, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' '] <<  }
+  DEBUG    root:machinery.py:338 {TICK: 128, PC: 17, AR: 6, DR: 32, ACC: 32, IO:  , N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 132, PC: 18, AR: 0, DR: 6, ACC: 6, IO:  , N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 135, PC: 19, AR: 0, DR: 1, ACC: 7, IO:  , N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 138, PC: 20, AR: 0, DR: 1, ACC: 7, IO:  , N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 140, PC: 14, AR: 0, DR: 14, ACC: 7, IO:  , N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 146, PC: 15, AR: 7, DR: 119, ACC: 119, IO:  , N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 147, PC: 16, AR: 7, DR: 119, ACC: 119, IO:  , N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w'] << w}
+  DEBUG    root:machinery.py:338 {TICK: 149, PC: 17, AR: 7, DR: 119, ACC: 119, IO: w, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 153, PC: 18, AR: 0, DR: 7, ACC: 7, IO: w, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 156, PC: 19, AR: 0, DR: 1, ACC: 8, IO: w, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 159, PC: 20, AR: 0, DR: 1, ACC: 8, IO: w, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 161, PC: 14, AR: 0, DR: 14, ACC: 8, IO: w, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 167, PC: 15, AR: 8, DR: 111, ACC: 111, IO: w, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 168, PC: 16, AR: 8, DR: 111, ACC: 111, IO: w, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o'] << o}
+  DEBUG    root:machinery.py:338 {TICK: 170, PC: 17, AR: 8, DR: 111, ACC: 111, IO: o, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 174, PC: 18, AR: 0, DR: 8, ACC: 8, IO: o, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 177, PC: 19, AR: 0, DR: 1, ACC: 9, IO: o, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 180, PC: 20, AR: 0, DR: 1, ACC: 9, IO: o, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 182, PC: 14, AR: 0, DR: 14, ACC: 9, IO: o, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 188, PC: 15, AR: 9, DR: 114, ACC: 114, IO: o, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 189, PC: 16, AR: 9, DR: 114, ACC: 114, IO: o, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r'] << r}
+  DEBUG    root:machinery.py:338 {TICK: 191, PC: 17, AR: 9, DR: 114, ACC: 114, IO: r, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 195, PC: 18, AR: 0, DR: 9, ACC: 9, IO: r, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 198, PC: 19, AR: 0, DR: 1, ACC: 10, IO: r, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 201, PC: 20, AR: 0, DR: 1, ACC: 10, IO: r, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 203, PC: 14, AR: 0, DR: 14, ACC: 10, IO: r, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 209, PC: 15, AR: 10, DR: 108, ACC: 108, IO: r, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 210, PC: 16, AR: 10, DR: 108, ACC: 108, IO: r, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l'] << l}
+  DEBUG    root:machinery.py:338 {TICK: 212, PC: 17, AR: 10, DR: 108, ACC: 108, IO: l, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 216, PC: 18, AR: 0, DR: 10, ACC: 10, IO: l, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 219, PC: 19, AR: 0, DR: 1, ACC: 11, IO: l, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 222, PC: 20, AR: 0, DR: 1, ACC: 11, IO: l, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 224, PC: 14, AR: 0, DR: 14, ACC: 11, IO: l, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 230, PC: 15, AR: 11, DR: 100, ACC: 100, IO: l, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 231, PC: 16, AR: 11, DR: 100, ACC: 100, IO: l, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'] << d}
+  DEBUG    root:machinery.py:338 {TICK: 233, PC: 17, AR: 11, DR: 100, ACC: 100, IO: d, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 237, PC: 18, AR: 0, DR: 11, ACC: 11, IO: d, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 240, PC: 19, AR: 0, DR: 1, ACC: 12, IO: d, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 243, PC: 20, AR: 0, DR: 1, ACC: 12, IO: d, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 245, PC: 14, AR: 0, DR: 14, ACC: 12, IO: d, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 251, PC: 15, AR: 12, DR: 33, ACC: 33, IO: d, N: False, Z: False} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 252, PC: 16, AR: 12, DR: 33, ACC: 33, IO: d, N: False, Z: False} {OUTC}
+  DEBUG    root:machinery.py:222 {output_buffer: ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '!'] << !}
+  DEBUG    root:machinery.py:338 {TICK: 254, PC: 17, AR: 12, DR: 33, ACC: 33, IO: !, N: False, Z: False} {LD, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 258, PC: 18, AR: 0, DR: 12, ACC: 12, IO: !, N: False, Z: False} {INC}
+  DEBUG    root:machinery.py:338 {TICK: 261, PC: 19, AR: 0, DR: 1, ACC: 13, IO: !, N: False, Z: False} {ST, 0, ABSOLUTE}
+  DEBUG    root:machinery.py:338 {TICK: 264, PC: 20, AR: 0, DR: 1, ACC: 13, IO: !, N: False, Z: False} {JUMP, 14, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 266, PC: 14, AR: 0, DR: 14, ACC: 13, IO: !, N: False, Z: False} {LD, 0, RELATIVE}
+  DEBUG    root:machinery.py:338 {TICK: 272, PC: 15, AR: 13, DR: 0, ACC: 0, IO: !, N: False, Z: True} {BEQ, 21, DIRECT}
+  DEBUG    root:machinery.py:338 {TICK: 274, PC: 21, AR: 13, DR: 21, ACC: 0, IO: !, N: False, Z: True} {HLT}

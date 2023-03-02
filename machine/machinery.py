@@ -199,6 +199,7 @@ class ControlUnit:
         elif opcode == Opcode.IN:
             self.device.read()
             val = ord(self.device.io)
+            logging.info("{{info_buffer: {} >> {}}}".format(self.device.input, val))
             self.latch_acc(val)
             self.tick()
 
@@ -209,15 +210,17 @@ class ControlUnit:
             val = chr(self.acc)
             self.device.io = val
             self.device.write()
+            logging.info("{{output_buffer: {} << {}}}".format(self.device.output, val))
             self.tick()
 
             self.latch_program_counter(True)
             self.tick()
 
         elif opcode == Opcode.OUT:
-            val = self.acc
-            self.device.io = str(val)
+            val = str(self.acc)
+            self.device.io = val
             self.device.write()
+            logging.info("{{output_buffer: {} << {}}}".format(self.device.output, val))
             self.tick()
 
             self.latch_program_counter(True)

@@ -97,7 +97,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "1000",
+          "arg": 1000,
           "arg_mode": "DIRECT"
       },
       {
@@ -132,7 +132,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "3",
+          "arg": 3,
           "arg_mode": "DIRECT"
       },
       {
@@ -157,7 +157,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "0",
+          "arg": 0,
           "arg_mode": "DIRECT"
       },
       {
@@ -192,7 +192,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "5",
+          "arg": 5,
           "arg_mode": "DIRECT"
       },
       {
@@ -217,7 +217,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "0",
+          "arg": 0,
           "arg_mode": "DIRECT"
       },
       {
@@ -242,7 +242,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "1",
+          "arg": 1,
           "arg_mode": "DIRECT"
       },
       {
@@ -267,7 +267,7 @@ code: |-
       },
       {
           "opcode": "LD",
-          "arg": "1",
+          "arg": 1,
           "arg_mode": "DIRECT"
       },
       {

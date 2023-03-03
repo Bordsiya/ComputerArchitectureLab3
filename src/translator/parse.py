@@ -133,7 +133,7 @@ class Parser:
                     elif arg in self.var_indx:
                         arg = self.var_indx[arg]
 
-                instr['arg'] = arg
+                instr['arg'] = int(arg)
             code.append(instr)
         return code
 

@@ -34,7 +34,7 @@
     },
     {
         "opcode": "LD",
-        "arg": "0",
+        "arg": 0,
         "arg_mode": "DIRECT"
     },
     {
